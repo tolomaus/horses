@@ -11,11 +11,11 @@
     <!-- over facebook.  You should fill these tags in with      -->
     <!-- your data.  To learn more about Open Graph, visit       -->
     <!-- 'https://developers.facebook.com/docs/opengraph/'       -->
-    <meta property="og:title" content=""/>
-    <meta property="og:type" content=""/>
-    <meta property="og:url" content=""/>
+    <meta property="og:title" content="Test App"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://high-stone-9785.herokuapp.com"/>
     <meta property="og:image" content=""/>
-    <meta property="og:site_name" content=""/>
+    <meta property="og:site_name" content="Test App"/>
     <meta property="fb:app_id" content="<%= @app.id %>" />
     <script>
       function popup(pageURL, title,w,h) {
@@ -127,7 +127,21 @@
     </section>
 
     <div class="list">
-      <h3>Things you like</h3>
+      <h3>Activities</h3>
+      <ul class="things">
+        <% @posts.each do |post| %>
+          <li>
+            <a href="#" onclick="window.open('http://www.facebook.com/<%= post.id %>')">
+              <img src="https://graph.facebook.com/<%= post.id %>/picture?type=square" alt="<%= post.message %>">
+              <%= post.message %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="list">
+      <h3>Activities</h3>
       <ul class="things">
         <% @activities.each do |activity| %>
           <li>
@@ -139,6 +153,20 @@
         <% end %>
       </ul>
     </div>
+
+      <div class="list">
+        <h3>Accounts</h3>
+        <ul class="things">
+          <% @accounts.each do |account| %>
+            <li>
+              <a href="#" onclick="window.open('http://www.facebook.com/<%= account.id %>')">
+                <img src="https://graph.facebook.com/<%= account.id %>/picture?type=square" alt="<%= account.name %>">
+                <%= account.name %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
 
     <section id="guides" class="clearfix">
       <h1>Learn More About Heroku &amp; Facebook Apps</h1>

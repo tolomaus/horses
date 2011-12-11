@@ -12,7 +12,7 @@ set :show_exceptions, false
 # permissions your app needs.
 # See https://developers.facebook.com/docs/reference/api/permissions/
 # for a full list of permissions
-FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags'
+FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags,user_activities,manage_pages,read_stream'
 
 unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
   abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
@@ -59,18 +59,20 @@ get "/" do
   @client = Mogli::Client.new(session[:at])
 
   # limit queries to 15 results
-  @client.default_params[:limit] = 100
+  @client.default_params[:limit] = 15
 
   @app  = Mogli::Application.find(ENV["FACEBOOK_APP_ID"], @client)
   @user = Mogli::User.find("me", @client)
 
   # access friends, photos and likes directly through the user instance
-  @friends = @user.friends[0, 10]
-  @photos  = @user.photos[0, 16]
-  @likes   = @user.likes[0, 4]
+  @friends = @user.friends
+  @photos  = @user.photos
+  @likes   = @user.likes
 
-  @activities = @user.activities[0, 10]
-  @interests = @user.interests[0, 10]
+  @posts = @user.posts
+  @activities = @user.activities
+  @interests = @user.interests
+  @accounts = @user.accounts
 
   # for other data you can always run fql
   @friends_using_app = @client.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
