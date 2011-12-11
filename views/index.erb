@@ -126,6 +126,20 @@
       </div>
     </section>
 
+    <div class="list">
+      <h3>Things you like</h3>
+      <ul class="things">
+        <% @activities.each do |activity| %>
+          <li>
+            <a href="#" onclick="window.open('http://www.facebook.com/<%= activity.id %>')">
+              <img src="https://graph.facebook.com/<%= activity.id %>/picture?type=square" alt="<%= activity.name %>">
+              <%= activity.name %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
     <section id="guides" class="clearfix">
       <h1>Learn More About Heroku &amp; Facebook Apps</h1>
       <ul>

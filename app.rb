@@ -69,6 +69,9 @@ get "/" do
   @photos  = @user.photos[0, 16]
   @likes   = @user.likes[0, 4]
 
+  @activities = @user.activities[0, 10]
+  @interests = @user.interests[0, 10]
+
   # for other data you can always run fql
   @friends_using_app = @client.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
 
