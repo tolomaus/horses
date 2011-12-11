@@ -59,13 +59,13 @@ get "/" do
   @client = Mogli::Client.new(session[:at])
 
   # limit queries to 15 results
-  @client.default_params[:limit] = 15
+  @client.default_params[:limit] = 100
 
   @app  = Mogli::Application.find(ENV["FACEBOOK_APP_ID"], @client)
   @user = Mogli::User.find("me", @client)
 
   # access friends, photos and likes directly through the user instance
-  @friends = @user.friends[0, 4]
+  @friends = @user.friends[0, 100]
   @photos  = @user.photos[0, 16]
   @likes   = @user.likes[0, 4]
 
