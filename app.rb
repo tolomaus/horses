@@ -65,7 +65,7 @@ get "/" do
   @user = Mogli::User.find("me", @client)
 
   # access friends, photos and likes directly through the user instance
-  @friends = @user.friends[0, 100]
+  @friends = @user.friends[0, 10]
   @photos  = @user.photos[0, 16]
   @likes   = @user.likes[0, 4]
 
