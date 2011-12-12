@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-HighStone9785::Application.load_tasks
+Horses::Application.load_tasks

@@ -1,4 +1,4 @@
-HighStone9785::Application.routes.draw do
+Horses::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
