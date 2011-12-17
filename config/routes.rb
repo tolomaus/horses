@@ -1,4 +1,10 @@
 Horses::Application.routes.draw do
+
+  root :to => 'pages#home'
+
+  match "/oath/new" => "oauth#new", :as => "new_oauth"
+  match "/oauth/create" => "oauth#create", :via => "get", :as => "oauth_callback"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
