@@ -1,6 +1,7 @@
 Horses::Application.routes.draw do
 
   root :to => 'pages#home'
+  match "/close" => "pages#close", :as => "close"
 
   match "/oath/new" => "oauth#new", :as => "new_oauth"
   match "/oauth/create" => "oauth#create", :via => "get", :as => "oauth_callback"

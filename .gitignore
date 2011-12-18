@@ -1,5 +1,7 @@
-.env
+.bundle
+db/*.sqlite3
 log/
-.idea/
 tmp/
+.sass-cache/
+.idea/
 .rvmrc

@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Horses</title>
+  <meta charset="utf-8">
+  <title><%= title %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <!-- These are Open Graph tags.  They add meta data to your  -->
+  <!-- site that facebook uses when your content is shared     -->
+  <!-- over facebook.  You should fill these tags in with      -->
+  <!-- your data.  To learn more about Open Graph, visit       -->
+  <!-- 'https://developers.facebook.com/docs/opengraph/'       -->
+  <meta property="og:title" content="<%= @app.name %>"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="<%= FACEBOOK_CONFIG['url'] %>"/>
+  <meta property="og:image" content="<%= image_path("app_logo.gif") %>"/>
+  <meta property="og:site_name" content="<%= @app.name %>"/>
+  <meta property="fb:app_id" content="<%= @app.id %>"/>
+  <script>
+    function popup(pageURL, title,w,h) {
+      var left = (screen.width/2)-(w/2);
+      var top = (screen.height/2)-(h/2);
+      var targetWin = window.open(
+        pageURL,
+        title,
+        'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left
+        );
+    }
+  </script>
+  <!--[if IE]>
+    <script>
+      var tags = ['header', 'section'];
+      while(tags.length)
+        document.createElement(tags.pop());
+    </script>
+  <![endif]-->
 </head>
 <body>
-
+<%= image_tag("app_logo.gif", :alt => @app.name) %>
+<h1><%=	@app.name %></h1>
 <%= yield %>
 
 </body>

@@ -14,8 +14,6 @@ class OauthController < ApplicationController
   end
 
   def authenticator
-    @authenticator ||= Mogli::Authenticator.new('277975605588155',
-                                         '6cfef061c4aa154dc24b1c44ce3d720b',
-                                         oauth_callback_url)
+    @authenticator ||= Mogli::Authenticator.new(FACEBOOK_CONFIG['app_id'], FACEBOOK_CONFIG['secret'], oauth_callback_url)
   end
 end
