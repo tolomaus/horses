@@ -1,6 +1,13 @@
 Horses::Application.routes.draw do
+  resources :horses do
+    member do
+      get :create_callback
+    end
+  end
 
   root :to => 'pages#home'
+
+  match "/reauthenticate" => "pages#reauthenticate", :as => "reauthenticate"
   match "/close" => "pages#close", :as => "close"
 
   match "/oath/new" => "oauth#new", :as => "new_oauth"
