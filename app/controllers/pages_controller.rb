@@ -1,11 +1,8 @@
 class PagesController < ApplicationController
+  before_filter :prepare_context
+
   def home
-    redirect_to new_oauth_path and return unless session[:access_token]
     @title = "Home"
-    session[:client] ||= Mogli::Client.new(session[:access_token])
-    session[:app] ||= Mogli::Application.find(FACEBOOK_CONFIG['app_id'], session[:client])
-    session[:user] ||= Mogli::User.find("me",session[:client])
-    set_instance_variables
 
     @friends = @user.friends
     @friends = @friends.sort_by{|f| [f.last_name, f.first_name]}
@@ -17,11 +14,7 @@ class PagesController < ApplicationController
   end
 
   def reauthenticate
-    redirect_to new_oauth_path and return
-    session[:client]=nil#Mogli::Client.new(session[:access_token])
-    session[:app]=nil#Mogli::Application.find(FACEBOOK_CONFIG['app_id'], session[:client])
-    session[:user]=nil#Mogli::User.find("me",session[:client])
-    redirect_to root_url
+    authenticate_if_necessary true
   end
 
   def close
