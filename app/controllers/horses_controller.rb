@@ -1,4 +1,6 @@
 class HorsesController < ApplicationController
+  skip_before_filter :authenticate_if_necessary, :only => :create_callback
+
   def index
     @horses = Horse.all
   end
