@@ -1,5 +1,7 @@
 class AddActionIdToHorse < ActiveRecord::Migration
   def change
-    t.column :registration_id, :string
+    change_table :horses do |t|
+      t.column :registration_id, :string
+    end
   end
 end
