@@ -2,17 +2,17 @@ require 'net/http'
 require "uri"
 
 class FacebookService
-  def register_horse(horse, horse_path, access_token)
+  def register_horse(horse, horse_url, access_token)
     uri = URI.parse("https://graph.facebook.com/me/spookje:register")
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    Rails.logger.info "Calling Facebook server #{uri} with path #{horse_path} and horse #{horse.name} (id: #{horse.id})"
+    Rails.logger.info "Calling Facebook server #{uri} with url #{horse_url} and horse #{horse.name} (id: #{horse.id})"
 
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data({"access_token" => access_token, "horse" => horse_path})
+    request.set_form_data({"access_token" => access_token, "horse" => horse_url})
     response = http.request(request)
     Rails.logger.info "response: #{response.code}: #{response.message}"
     Rails.logger.info "response body: #{response.body}"

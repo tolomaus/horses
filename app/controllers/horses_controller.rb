@@ -16,7 +16,7 @@ class HorsesController < ApplicationController
     @horse = Horse.new(params[:horse])
     if @horse.save
       #horse must have an id before registering it to Facebook
-      @horse.registration_id = FacebookService.new.register_horse @horse, horse_path(@horse), session[:access_token]
+      @horse.registration_id = FacebookService.new.register_horse @horse, horse_url(@horse), session[:access_token]
       redirect_to @horse, :flash => { :success => "Horse was successfully registered. Registration id: #{@horse.registration_id}" }
     else
       @title = "Register your horse"
