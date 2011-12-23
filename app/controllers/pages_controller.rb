@@ -1,6 +1,4 @@
 class PagesController < ApplicationController
-  before_filter :prepare_context
-
   def home
     @title = "Home"
 

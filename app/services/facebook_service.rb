@@ -9,7 +9,7 @@ class FacebookService
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    Rails.logger.info "Calling Facebook server with path #{uri.host} and horse #{horse.name} (id: #{horse.id})"
+    Rails.logger.info "Calling Facebook server #{uri} with path #{horse_path} and horse #{horse.name} (id: #{horse.id})"
 
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data({"access_token" => access_token, "horse" => horse_path})

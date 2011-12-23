@@ -1,5 +1,5 @@
 class OauthController < ApplicationController
-  #skip_before_filter :prepare_context
+  skip_before_filter :authenticate_if_necessary
   FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags,user_activities,manage_pages,read_stream,publish_actions'
 
   def new

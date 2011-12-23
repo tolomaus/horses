@@ -10,7 +10,6 @@ class HorsesController < ApplicationController
   def new
     @title = "Register your horse"
     @horse=Horse.new
-    set_instance_variables
   end
 
   def create
@@ -21,7 +20,6 @@ class HorsesController < ApplicationController
       redirect_to @horse, :flash => { :success => "Horse was successfully registered. Registration id: #{@horse.registration_id}" }
     else
       @title = "Register your horse"
-      set_instance_variables
       render 'new'
     end
   end
