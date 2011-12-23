@@ -47,7 +47,7 @@ class HorsesController < ApplicationController
   end
 
   def create_callback
-    layout 'facebook'
     @horse = Horse.find(params[:id])
+    render :layout => false
   end
 end

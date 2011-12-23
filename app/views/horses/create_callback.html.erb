@@ -1,12 +1,15 @@
-<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# spookje: http://ogp.me/ns/fb/spookje#">
- <meta property="fb:app_id"      content="<%= FACEBOOK_CONFIG['app_id'] %>" />
- <meta property="og:type"        content="spookje:horse" />
- <meta property="og:url"         content="<%= horse_url @horse.name  %>" />
- <meta property="og:title"       content="<%= @horse.name %>" />
- <meta property="og:description" content="<%= @horse.description %>" />
- <meta property="og:image"       content="https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" />
- <meta property="spookje:owner"  content="<%= @horse.owner %>" />
- <meta property="spookje:rider"  content="<%= @horse.rider %>" />
-</head>
-<body>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US"
+    xmlns:fb="https://www.facebook.com/2008/fbml">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# spookje: http://ogp.me/ns/fb/spookje#">
+   <meta property="fb:app_id"      content="<%= FACEBOOK_CONFIG['app_id'] %>" />
+   <meta property="og:type"        content="spookje:horse" />
+   <meta property="og:url"         content="<%= horse_url @horse.name  %>" />
+   <meta property="og:title"       content="<%= @horse.name %>" />
+   <meta property="og:description" content="<%= @horse.description %>" />
+   <meta property="og:image"       content="https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" />
+   <meta property="spookje:owner"  content="<%= @horse.owner %>" />
+   <meta property="spookje:rider"  content="<%= @horse.rider %>" />
+  </head>
+  <body>
+  </body>
+</html>
