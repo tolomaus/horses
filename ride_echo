@@ -1,0 +1,3 @@
+curl -F 'access_token=AAAD80T06MLsBAG4SeDvrrU5Y8LRDmnxfoZCvHLHpDui8MQn0VedEvSGHxH6PGwWZACDRKCG9Sx8MxbEbEzfjyUoKQIQ5UUPqJ0j9FUQWXHZAjUN6fTv' \
+-F 'horse=http://horses.herokuapp.com/horses/11' \
+'https://graph.facebook.com/me/spookje:ride'
