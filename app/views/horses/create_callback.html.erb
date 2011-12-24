@@ -3,7 +3,7 @@
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# spookje: http://ogp.me/ns/fb/spookje#">
    <meta property="fb:app_id"      content="<%= FACEBOOK_CONFIG['app_id'] %>" />
    <meta property="og:type"        content="spookje:horse" />
-   <meta property="og:url"         content="<%= create_callback_horse_url @horse  %>" />
+   <meta property="og:url"         content="<%= horse_url @horse  %>" />
    <meta property="og:title"       content="<%= @horse.name %>" />
    <meta property="og:description" content="<%= @horse.description %>" />
    <meta property="og:image"       content="<%= !@horse.image.empty? ? @horse.image : "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" %>" />

@@ -32,8 +32,9 @@ https://graph.facebook.com?id=<OBJECT_ID or OBJECT_URL>&scrape=true
 FQL:
 SELECT url, id, type, site FROM object_url WHERE url = OBJECT_URL
 SELECT url, id, type, site FROM object_url WHERE id = OBJECT_ID
-
 Use the Open Graph API Explorer to run an FQL query: https://developers.facebook.com/tools/explorer
+Then supply the query as following: https://graph.facebook.com/fql?q=SELECT uid2 FROM friend WHERE uid1=me()
 
 Questions:
 How to query all objects of type spookje:horse?
+How to debug the callback from Facebook after posting an action on an object?

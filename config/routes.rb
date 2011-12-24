@@ -1,9 +1,5 @@
 Horses::Application.routes.draw do
-  resources :horses do
-    member do
-      get :create_callback
-    end
-  end
+  resources :horses
 
   root :to => 'pages#home'
 
