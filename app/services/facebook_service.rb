@@ -9,7 +9,7 @@ class FacebookService
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    Rails.logger.info "Calling Facebook server #{uri} with url #{horse_url} and horse #{horse.name} (id: #{horse.id})"
+    Rails.logger.info "Calling Facebook server #{uri} with url #{horse_url} (#{horse.name})"
 
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data({"access_token" => access_token, "horse" => horse_url})
@@ -31,7 +31,7 @@ class FacebookService
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    Rails.logger.info "Calling Facebook server #{uri} with id #{horse_url} for horse #{horse.name} (id: #{horse.id})"
+    Rails.logger.info "Calling Facebook server #{uri} with url #{horse_url} (#{horse.name})"
 
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data({"id" => horse_url, "scrape" => "true"})
