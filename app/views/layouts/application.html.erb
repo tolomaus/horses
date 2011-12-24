@@ -1,22 +1,12 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html <%= yield :head_attributes %>>
+<head <%= yield :head_attributes %>>
   <meta charset="utf-8">
   <title><%= title %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <!-- These are Open Graph tags.  They add meta data to your  -->
-  <!-- site that facebook uses when your content is shared     -->
-  <!-- over facebook.  You should fill these tags in with      -->
-  <!-- your data.  To learn more about Open Graph, visit       -->
-  <!-- 'https://developers.facebook.com/docs/opengraph/'       -->
-  <meta property="og:title" content="<%= FACEBOOK_CONFIG['app_name'] %>"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="<%= FACEBOOK_CONFIG['url'] %>"/>
-  <meta property="og:image" content="<%= image_path("app_logo.gif") %>"/>
-  <meta property="og:site_name" content="<%= FACEBOOK_CONFIG['app_name'] %>"/>
-  <meta property="fb:app_id" content="<%= FACEBOOK_CONFIG['app_id'] %>"/>
+  <%= yield :head %>
   <script>
     function popup(pageURL, title,w,h) {
       var left = (screen.width/2)-(w/2);

@@ -1,0 +1,39 @@
+Open Graph Tutorial:
+https://developers.facebook.com/docs/beta/opengraph/
+Contains a tutorial to build an Open Graph app
+
+How to debug open graph code (blog post):
+https://developers.facebook.com/blog/post/612/
+
+How to debug your object's url:
+https://developers.facebook.com/tools/debug
+Then supply the url of your object (e.g.: http://horses.herokuapp.com/horses/8)
+Can also be used to debug your access token
+
+Open Graph API Explorer:
+https://developers.facebook.com/tools/explorer
+Then supply an object id: https://graph.facebook.com/OBJECT_ID
+Or an object url: https://graph.facebook.com/OBJECT_URL
+Or an FQL query: https://graph.facebook.com/fql?q=SELECT uid2 FROM friend WHERE uid1=me()
+It will show the properties of the object in json format
+
+Sample PHP app using the Open Graph:
+https://github.com/facebook/Social-Cafe-Sample
+
+Show more info on an object id:
+https://www.facebook.com/me/activity/OBJECT_ID
+
+Post an action on an object:
+https://graph.facebook.com/me/spookje:<action>?horse=<OBJECT_URL>&access_token=<ACCESS_TOKEN> (HTTP POST)
+
+Update an object:
+https://graph.facebook.com?id=<OBJECT_ID or OBJECT_URL>&scrape=true
+
+FQL:
+SELECT url, id, type, site FROM object_url WHERE url = OBJECT_URL
+SELECT url, id, type, site FROM object_url WHERE id = OBJECT_ID
+
+Use the Open Graph API Explorer to run an FQL query: https://developers.facebook.com/tools/explorer
+
+Questions:
+How to query all objects of type spookje:horse?
