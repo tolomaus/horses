@@ -1,6 +1,6 @@
 module ApplicationHelper
   def title
-    base_title = @app.name
+    base_title = FACEBOOK_CONFIG['app_name']
     if @title.nil?
       base_title
     else

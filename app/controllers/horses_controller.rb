@@ -1,11 +1,13 @@
 class HorsesController < ApplicationController
-  skip_before_filter :authenticate_if_necessary, :only => :create_callback
+  skip_before_filter :authenticate_if_necessary, :only => [:show, :create_callback]
 
   def index
+    @title = "Your horses"
     @horses = Horse.all
   end
 
   def show
+    @title = "Your horse"
     @horse = Horse.find(params[:id])
   end
 
@@ -27,15 +29,17 @@ class HorsesController < ApplicationController
   end
 
   def edit
+    @title = "Edit your horse"
     @horse = Horse.find(params[:id])
   end
 
   def update
     @horse = Horse.find(params[:id])
     if @horse.update_attributes(params[:horse])
-      response = FacebookService.new.update_horse horse_path(@horse), session[:access_token]
+      response = FacebookService.new.update_horse @horse, horse_url(@horse), session[:access_token]
       redirect_to @horse, :flash => { :success => "Horse was successfully updated. Response from Facebook: #{CGI.unescape(response)}" }
     else
+      @title = "Edit your horse"
       render 'edit'
     end
   end

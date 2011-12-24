@@ -1,0 +1,31 @@
+<h1>Horses</h1>
+
+<table class=horses>
+  <tr>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Owner</th>
+    <th>Rider</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @horses.each do |horse| %>
+  <tr>
+    <td><img src="<%= !horse.image.empty? ? horse.image : "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" %>" ></td>
+    <td><%= horse.name %></td>
+    <td><%= horse.description %></td>
+    <td><%= horse.owner %></td>
+    <td><%= horse.rider %></td>
+    <td><%= link_to 'Show', horse %></td>
+    <td><%= link_to 'Edit', edit_horse_path(horse) %></td>
+    <td><%= link_to 'Remove', horse, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New horse', new_horse_path %>

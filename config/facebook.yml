@@ -5,6 +5,7 @@
 #   gem 'sqlite3'
 development:
   app_id: 277975605588155
+  app_name: White Horse Farm
   secret: 6cfef061c4aa154dc24b1c44ce3d720b
   url: https://horses.herokuapp.com
 
@@ -13,10 +14,12 @@ development:
 # Do not set this db to the same as development or production.
 test:
   app_id: 277975605588155
+  app_name: White Horse Farm
   secret: 6cfef061c4aa154dc24b1c44ce3d720b
   url: https://horses.herokuapp.com
 
 production:
   app_id: 277975605588155
+  app_name: White Horse Farm
   secret: 6cfef061c4aa154dc24b1c44ce3d720b
   url: https://horses.herokuapp.com

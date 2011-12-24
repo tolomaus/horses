@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <img src="<%= !@horse.image.empty? ? @horse.image : "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" %>" >
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @horse.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @horse.description %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%= @horse.owner %>
+</p>
+
+<p>
+  <b>Rider:</b>
+  <%= @horse.rider %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_horse_path(@horse) %> |
+<%= link_to 'Back', horses_path %>

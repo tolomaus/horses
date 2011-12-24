@@ -15,7 +15,7 @@
 </div>
 
 <div class="horses">
-  <%= link_to "New horse", new_horse_url %>
+  <%= link_to "Your horses", horses_url %>
 </div>
 <div class="cleanup">
   <%= link_to "Re-authenticate",reauthenticate_url %>
@@ -36,8 +36,8 @@
   <ul class="friends">
     <% @friends_using_app.each do |friend| %>
       <li>
+        <img src="https://graph.facebook.com/<%= friend["uid"] %>/picture" alt="<%= friend["name"] %>">
         <a href="#" onclick="window.open('http://www.facebook.com/<%= friend["uid"] %>')">
-          <img src="https://graph.facebook.com/<%= friend["uid"] %>/picture" alt="<%= friend["name"] %>">
           <%= friend["name"] %>
         </a>
       </li>
@@ -50,8 +50,8 @@
   <ul class="friends">
     <% @friends.each do |friend| %>
       <li>
-        <a href="#" onclick="window.open('http://www.facebook.com/<%= friend.id %>')">
-          <img src="https://graph.facebook.com/<%= friend.id %>/picture" alt="<%= friend.name %>">
+      <img src="https://graph.facebook.com/<%= friend.id %>/picture" alt="<%= friend.name %>">
+      <a href="#" onclick="window.open('http://www.facebook.com/<%= friend.id %>')">
           <%= friend.name %>
         </a>
       </li>
