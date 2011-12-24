@@ -2,11 +2,11 @@
 <html <%= yield :html_attributes %>>
 <head <%= yield :head_attributes %>>
   <meta charset="utf-8">
+  <%= yield :head %>
   <title><%= title %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <%= yield :head %>
   <script>
     function popup(pageURL, title,w,h) {
       var left = (screen.width/2)-(w/2);

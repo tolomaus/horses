@@ -13,7 +13,7 @@ Can also be used to debug your access token
 Open Graph API Explorer:
 https://developers.facebook.com/tools/explorer
 Then supply an object id: https://graph.facebook.com/OBJECT_ID
-Or an object url: https://graph.facebook.com/OBJECT_URL
+Or an object url: https://graph.facebook.com/OBJECT_URL (doesn't seem to work)
 Or an FQL query: https://graph.facebook.com/fql?q=SELECT uid2 FROM friend WHERE uid1=me()
 It will show the properties of the object in json format
 
