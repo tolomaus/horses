@@ -45,6 +45,7 @@
   <%= @horse.rider %>
 </p>
 
+<div class="fb-like" data-href="<%= horse_url @horse %>" data-send="true" data-width="450" data-show-faces="true"></div>
 <div class="fb-comments" data-href="<%= horse_url @horse %>" data-num-posts="2" data-width="500"></div>
 
 <%= link_to 'Edit', edit_horse_path(@horse) %> |
