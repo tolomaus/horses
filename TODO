@@ -1,0 +1,18 @@
+Release 1:
+- Use FQL to retrieve the id of a new horse instead of sending an update request
+- Add action buttons on the index page (Ajax)
+- Use the facebook style sheet all over
+- Add "friends who are using this app", also show their horses
+- Add "Others who are using this app", also show their horses
+- Add / remove some fields: date of birth, ridden since, "special properties"
+- Use a FB dialog to select or upload a picture of the horse
+- Add a link to a photo album & video album
+- Translate the app in Dutch & French
+
+- Investigate why the authentication process involves two/three facebook dialogs that each ask for the permissions
+- Investigate why the app is not shown inside the facebook container after authenticating for first time usage
+
+- Register a permanent domain name (e.g. whitehorsefarm.org) before going live because the url is used as the identifier of a horse
+
+Release 2+:
+

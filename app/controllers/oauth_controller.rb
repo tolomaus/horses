@@ -11,6 +11,7 @@ class OauthController < ApplicationController
   def create    
     logger.info "Authentication callback is called ..."
     if params[:error]
+      logger.error "oauth.create received an authentication error: #{params}"
       @error = params[:error]
       @error_reason = params[:error_reason]
       @error_description = params[:error_description]

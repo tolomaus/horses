@@ -23,6 +23,7 @@ class HorsesController < ApplicationController
       #horse must have an internal id before registering it to Facebook
       @horse.fb_registration_id = FacebookService.new.register_horse @horse, horse_url(@horse), session[:access_token]
       @horse.fb_object_id = FacebookService.new.update_horse @horse, horse_url(@horse), session[:access_token]
+      @client.fql_query("SELECT uid, name, first_name, last_name FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
       if @horse.save
         redirect_to @horse, :flash => { :success => "Horse was successfully registered. Object id: #{@horse.fb_object_id}, registration id: #{@horse.fb_registration_id}" }
         return
