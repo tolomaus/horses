@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111222105128) do
+ActiveRecord::Schema.define(:version => 20111225001954) do
 
   create_table "horses", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20111222105128) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "registration_id"
+    t.string   "object_id"
   end
 
   create_table "sessions", :force => true do |t|
