@@ -3,20 +3,20 @@
 <% end %>
 
 <% content_for :head_attributes do %>
-   prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# spookje: http://ogp.me/ns/fb/spookje#"
+   prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# whitehorsefarm: http://ogp.me/ns/fb/whitehorsefarm#"
 <% end %>
 
 <% content_for :head do %>
   <meta property="fb:app_id"      content="<%= FACEBOOK_CONFIG['app_id'] %>" />
-  <meta property="og:type"        content="spookje:horse" />
+  <meta property="og:type"        content="whitehorsefarm:horse" />
   <meta property="og:url"         content="<%= horse_url @horse  %>" />
   <meta property="og:title"       content="<%= @horse.name %>" />
   <meta property="og:description" content="<%= @horse.description %>" />
   <meta property="og:image"       content="<%= !@horse.image.empty? ? @horse.image : "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" %>" />
   <meta property="og:locale"      content="en_us"/>
-  <meta property="spookje:name"   content="<%= @horse.name %>" />
-  <meta property="spookje:owner"  content="<%= @horse.owner %>" />
-  <meta property="spookje:rider"  content="<%= @horse.rider %>" />
+  <meta property="whitehorsefarm:name"   content="<%= @horse.name %>" />
+  <meta property="whitehorsefarm:owner"  content="<%= @horse.owner %>" />
+  <meta property="whitehorsefarm:rider"  content="<%= @horse.rider %>" />
 <% end %>
 
 <p id="notice"><%= notice %></p>

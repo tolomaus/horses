@@ -24,10 +24,10 @@ Show more info on an activity (=action):
 https://www.facebook.com/me/activity/ACTION_ID
 
 Show all my actions for an action type:
-https://graph.facebook.com/me/spookje:ACTION_TYPE?access_token=ACCESS_TOKEN
+https://graph.facebook.com/me/whitehorsefarm:ACTION_TYPE?access_token=ACCESS_TOKEN
 
 Post an action on an object:
-https://graph.facebook.com/me/spookje:<action>?horse=<OBJECT_URL>&access_token=<ACCESS_TOKEN> (HTTP POST)
+https://graph.facebook.com/me/whitehorsefarm:<action>?horse=<OBJECT_URL>&access_token=<ACCESS_TOKEN> (HTTP POST)
 
 Update an object:
 https://graph.facebook.com?id=<OBJECT_ID or OBJECT_URL>&scrape=true
@@ -39,5 +39,5 @@ Use the Open Graph API Explorer to run an FQL query: https://developers.facebook
 Then supply the query as following: https://graph.facebook.com/fql?q=SELECT uid2 FROM friend WHERE uid1=me()
 
 Questions:
-How to query all objects of type spookje:horse?
+How to query all objects of type whitehorsefarm:horse?
 How to debug the callback from Facebook after posting an action on an object?

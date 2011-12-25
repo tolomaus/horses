@@ -3,7 +3,7 @@ require "uri"
 
 class FacebookService
   def register_horse(horse, horse_url, access_token)
-    uri = URI.parse("https://graph.facebook.com/me/spookje:register")
+    uri = URI.parse("https://graph.facebook.com/me/whitehorsefarm:register")
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
