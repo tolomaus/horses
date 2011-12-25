@@ -15,6 +15,10 @@ class PagesController < ApplicationController
     authenticate_if_necessary true
   end
 
+  def privacy
+
+  end
+
   def close
     render :text => "<body onload='window.close();'/>"
   end

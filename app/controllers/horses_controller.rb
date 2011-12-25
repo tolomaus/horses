@@ -18,10 +18,11 @@ class HorsesController < ApplicationController
 
   def create
     @horse = Horse.new(params[:horse])
+    @horse.fb_user_id = @user.id
     if @horse.save
       #horse must have an internal id before registering it to Facebook
-      @horse.registration_id = FacebookService.new.register_horse @horse, horse_url(@horse), session[:access_token]
-      @horse.object_id = FacebookService.new.update_horse @horse, horse_url(@horse), session[:access_token]
+      @horse.fb_registration_id = FacebookService.new.register_horse @horse, horse_url(@horse), session[:access_token]
+      @horse.fb_object_id = FacebookService.new.update_horse @horse, horse_url(@horse), session[:access_token]
       if @horse.save
         redirect_to @horse, :flash => { :success => "Horse was successfully registered. Object id: #{@horse.object_id}, registration id: #{@horse.registration_id}" }
         return

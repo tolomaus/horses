@@ -10,6 +10,12 @@ class OauthController < ApplicationController
   
   def create    
     logger.info "Authentication callback is called ..."
+    if params[:error]
+      @error = params[:error]
+      @error_reason = params[:error_reason]
+      @error_description = params[:error_description]
+      render 'error'
+    end
     mogli_client = Mogli::Client.create_from_code_and_authenticator(params[:code],authenticator)
     session[:access_token]=mogli_client.access_token
     logger.info "Authentication succeeded: client access token = #{mogli_client.access_token}"

@@ -1,9 +1,10 @@
 Horses::Application.routes.draw do
   resources :horses
 
-  root :to => 'pages#home'
+  root :to => 'horses#index'
 
   match "/reauthenticate" => "pages#reauthenticate", :as => "reauthenticate"
+  match "/privacy" => "pages#privacy", :as => "privacy"
   match "/close" => "pages#close", :as => "close"
 
   match "/oath/new" => "oauth#new", :as => "new_oauth"
