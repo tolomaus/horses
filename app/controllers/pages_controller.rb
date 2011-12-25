@@ -16,7 +16,10 @@ class PagesController < ApplicationController
   end
 
   def privacy
+  end
 
+  def deauthorize_callback
+    logger.info params
   end
 
   def close

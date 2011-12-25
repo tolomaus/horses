@@ -3,7 +3,7 @@ class HorsesController < ApplicationController
 
   def index
     @title = "Your horses"
-    @horses = Horse.all
+    @horses = Horse.find_all_by_fb_user_id(@user.id)
   end
 
   def show
@@ -24,7 +24,7 @@ class HorsesController < ApplicationController
       @horse.fb_registration_id = FacebookService.new.register_horse @horse, horse_url(@horse), session[:access_token]
       @horse.fb_object_id = FacebookService.new.update_horse @horse, horse_url(@horse), session[:access_token]
       if @horse.save
-        redirect_to @horse, :flash => { :success => "Horse was successfully registered. Object id: #{@horse.object_id}, registration id: #{@horse.registration_id}" }
+        redirect_to @horse, :flash => { :success => "Horse was successfully registered. Object id: #{@horse.fb_object_id}, registration id: #{@horse.fb_registration_id}" }
         return
       end
     end
@@ -36,10 +36,16 @@ class HorsesController < ApplicationController
   def edit
     @title = "Edit your horse"
     @horse = Horse.find(params[:id])
+    if @horse.fb_user_id != @user.id
+      redirect_to @horse, :flash => { :error => "You are not allowed to edit this horse." }
+    end
   end
 
   def update
     @horse = Horse.find(params[:id])
+    if @horse.fb_user_id != @user.id
+      redirect_to @horse, :flash => { :error => "You are not allowed to update this horse." }
+    end
     if @horse.update_attributes(params[:horse])
       FacebookService.new.update_horse @horse, horse_url(@horse), session[:access_token]
       redirect_to @horse, :flash => { :success => "Horse was successfully updated." }
@@ -51,12 +57,10 @@ class HorsesController < ApplicationController
 
   def destroy
     @horse = Horse.find(params[:id])
+    if @horse.fb_user_id != @user.id
+      redirect_to @horse, :flash => { :error => "You are not allowed to delete this horse." }
+    end
     @horse.destroy
     redirect_to horses_path
-  end
-
-  def create_callback
-    @horse = Horse.find(params[:id])
-    render :layout => false
   end
 end

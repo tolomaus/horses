@@ -5,6 +5,7 @@ Horses::Application.routes.draw do
 
   match "/reauthenticate" => "pages#reauthenticate", :as => "reauthenticate"
   match "/privacy" => "pages#privacy", :as => "privacy"
+  match "/deauthorize_callback" => "oauth#deauthorize_callback"
   match "/close" => "pages#close", :as => "close"
 
   match "/oath/new" => "oauth#new", :as => "new_oauth"

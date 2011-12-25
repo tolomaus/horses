@@ -7,7 +7,7 @@ development:
   app_id: 277975605588155
   app_name: White Horse Farm
   secret: 6cfef061c4aa154dc24b1c44ce3d720b
-  url: https://horses.herokuapp.com
+  url: http://localhost:3000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
