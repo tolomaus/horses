@@ -20,8 +20,8 @@ It will show the properties of the object in json format
 Sample PHP app using the Open Graph:
 https://github.com/facebook/Social-Cafe-Sample
 
-Show more info on an activity:
-https://www.facebook.com/me/activity/ACTIVITY_ID
+Show more info on an activity (=action):
+https://www.facebook.com/me/activity/ACTION_ID
 
 Show all my actions for an action type:
 https://graph.facebook.com/me/spookje:ACTION_TYPE?access_token=ACCESS_TOKEN

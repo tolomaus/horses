@@ -26,7 +26,7 @@ end
 
 group :production do
   gem 'pg'
-  gem 'thin'
+  gem 'unicorn'
 end
 
 gem 'execjs'
