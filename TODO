@@ -9,9 +9,8 @@ Release 1:
 - Add a link to a photo album & video album
 - Translate the app in Dutch & French
 - Get the flash message shown wherever necessary
-- Create a logon screen showing the user's friends that also use the app
+- Create a logon screen showing the user's friends that also use the app (to be finished up)
 
-- Investigate why the authentication process involves two/three facebook dialogs that each ask for the permissions
 - Investigate why the app is not shown inside the facebook container after authenticating for first time usage
 
 - Register a permanent domain name (e.g. whitehorsefarm.org) before going live because the url is used as the identifier of a horse
