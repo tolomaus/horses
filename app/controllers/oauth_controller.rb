@@ -20,7 +20,7 @@ class OauthController < ApplicationController
     mogli_client = Mogli::Client.create_from_code_and_authenticator(params[:code],authenticator)
     session[:access_token]=mogli_client.access_token
     logger.info "Authentication succeeded: client access token = #{mogli_client.access_token}"
-    redirect_to "/"
+    redirect_to  FACEBOOK_CONFIG['url']
   end
 
   def deauthorize_callback

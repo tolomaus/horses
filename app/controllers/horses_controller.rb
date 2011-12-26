@@ -1,5 +1,5 @@
 class HorsesController < ApplicationController
-  skip_before_filter :authenticate_if_necessary, :only => [:show,]
+  skip_before_filter :authenticate_if_necessary, :only => [:show]
 
   def index
     @title = "Your horses"
