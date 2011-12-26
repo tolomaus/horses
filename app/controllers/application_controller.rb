@@ -9,26 +9,19 @@ class ApplicationController < ActionController::Base
       return false
     end
 
-    begin
-      me = Mogli::User.find("me", Mogli::Client.new(session[:access_token]))
-    rescue Exception => e
-      logger.error "Exception caught while testing the validity of the access_token:"
-      logger.error e.to_s
-      redirect_to new_oauth_path
-      return false
-    end
-
-    if Mogli::Client.response_is_error?(me)
-      if me["error"]["type"] == 'OAuthException'
-        authenticate_if_necessary true
+    #This code should be replaced by Mogli code once the bug on the error raised after an OAuth error is received is solved
+    @user = FacebookService.new.get_me(session[:access_token])
+    if Mogli::Client.response_is_error?(@user)
+      if @user["error"]["type"] == 'OAuthException'
+        logger.info "The access_token is invalid, therefore we must re-authenticate the user."
+        redirect_to new_oauth_path
       else
-        Mogli::Client.raise_client_exception(me)
+        Mogli::Client.raise_client_exception(@user)
       end
     end
 
     @client = Mogli::Client.new(session[:access_token])
     @app = Mogli::Application.find(FACEBOOK_CONFIG['app_id'], @client)
-    @user = Mogli::User.find("me", @client)
   end
 
   def handle_exception(exception)

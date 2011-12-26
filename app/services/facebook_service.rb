@@ -2,7 +2,7 @@ require 'net/http'
 require "uri"
 
 class FacebookService
-  def register_horse(horse, horse_url, access_token)
+  def register_horse!(horse, horse_url, access_token)
     if Rails.env=='development'
       #Not possible to receive callbacks from Facebook while the app is running internally
       return
@@ -28,7 +28,7 @@ class FacebookService
     return parsed_json[:id]
   end
 
-  def update_horse(horse, horse_url, access_token)
+  def update_horse!(horse, horse_url, access_token)
     if Rails.env=='development'
       #Not possible to receive callbacks from Facebook while the app is running internally
       return
@@ -52,5 +52,31 @@ class FacebookService
     end
 
     return parsed_json[:id]
+  end
+
+  def get_me(access_token)
+    if Rails.env=='development'
+      #Not possible to receive callbacks from Facebook while the app is running internally
+      return
+    end
+    uri = URI.parse("https://graph.facebook.com/me?access_token=#{access_token}")
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    Rails.logger.info "Calling Facebook server #{uri} to get 'me'"
+
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    Rails.logger.info "response: #{response.code}: #{response.message}"
+    Rails.logger.info "response body: #{response.body}"
+    parsed_json = ActiveSupport::JSON.decode(response.body)
+    if response.code!='200'
+      Rails.logger.info "Get 'me' from Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
+      return
+    end
+
+    return parsed_json
   end
 end

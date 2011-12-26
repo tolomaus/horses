@@ -1,6 +1,11 @@
+<% content_for :html_attributes do %>
+  xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"
+<% end %>
 <% content_for :head do %>
   <%= render :partial => 'shared/metatags' %>
 <% end %>
 
 <h1>Home page</h1>
 <%= link_to "Enter", horses_url %>
+
+<fb:facepile></fb:facepile>
