@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_filter :authenticate_if_necessary, :only => [:privacy, :deauthorize_callback]
+  skip_before_filter :authenticate_if_necessary, :only => [:index, :privacy, :deauthorize_callback]
 
   def index
   end
