@@ -16,10 +16,10 @@ test:
   app_id: 277975605588155
   app_name: White Horse Farm
   secret: 6cfef061c4aa154dc24b1c44ce3d720b
-  url: https://horses.herokuapp.com
+  url: https://whitehorsefarm.herokuapp.com
 
 production:
   app_id: 277975605588155
   app_name: White Horse Farm
   secret: 6cfef061c4aa154dc24b1c44ce3d720b
-  url: https://horses.herokuapp.com
+  url: https://whitehorsefarm.herokuapp.com
