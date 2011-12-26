@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     end
 
     begin
-      test_user = Mogli::User.find("zuck", Mogli::Client.new(session[:access_token]))
+      me = Mogli::User.find("me", Mogli::Client.new(session[:access_token]))
     rescue Exception => e
       logger.error "Exception caught while testing the validity of the access_token:"
       logger.error e.to_s
@@ -18,11 +18,11 @@ class ApplicationController < ActionController::Base
       return false
     end
 
-    if Mogli::Client.response_is_error?(test_user)
-      if test_user["error"]["type"] == 'OAuthException'
+    if Mogli::Client.response_is_error?(me)
+      if me["error"]["type"] == 'OAuthException'
         authenticate_if_necessary true
       else
-        Mogli::Client.raise_client_exception(test_user)
+        Mogli::Client.raise_client_exception(me)
       end
     end
 

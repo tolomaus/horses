@@ -1,13 +1,15 @@
 Release 1:
 - Use FQL to retrieve the id of a new horse instead of sending an update request
 - Add action buttons on the index page (Ajax)
-- Use the facebook style sheet all over
+- Use the facebook look and feel
 - Add "friends who are using this app", also show their horses
 - Add "Others who are using this app", also show their horses
 - Add / remove some fields: date of birth, ridden since, "special properties"
 - Use a FB dialog to select or upload a picture of the horse
 - Add a link to a photo album & video album
 - Translate the app in Dutch & French
+- Get the flash message shown wherever necessary
+- Create a logon screen showing the user's friends that also use the app
 
 - Investigate why the authentication process involves two/three facebook dialogs that each ask for the permissions
 - Investigate why the app is not shown inside the facebook container after authenticating for first time usage
@@ -15,4 +17,12 @@ Release 1:
 - Register a permanent domain name (e.g. whitehorsefarm.org) before going live because the url is used as the identifier of a horse
 
 Release 2+:
+- possibility for the user to send messages to the users that have liked his horse:
+curl -F 'access_token=...' \
+ -F 'message=Hello Likers' \
+ -F 'id=http://www.myopengraphpage.com/page1.html' \
+ https://graph.facebook.com/feed
 
+
+DONE:
+- Logging in: check if the access_token is still valid (now this is done by finding "zuck" but there should be a more reliable way)

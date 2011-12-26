@@ -25,6 +25,8 @@
   <img src="<%= !@horse.image.empty? ? @horse.image : "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" %>" >
 </p>
 
+<div class="fb-like" data-href="<%= horse_path @horse %>" data-send="true" data-width="450" data-show-faces="true"></div>
+
 <p>
   <b>Name:</b>
   <%= @horse.name %>
@@ -45,8 +47,7 @@
   <%= @horse.rider %>
 </p>
 
-<div class="fb-like" data-href="<%= horse_url @horse %>" data-send="true" data-width="450" data-show-faces="true"></div>
-<div class="fb-comments" data-href="<%= horse_url @horse %>" data-num-posts="2" data-width="500"></div>
+<!--<div class="fb-comments" data-href="<%= horse_path @horse %>" data-num-posts="5" data-width="500"></div>-->
 
 <%= link_to 'Edit', edit_horse_path(@horse) %> |
 <%= link_to 'Back', horses_path %>

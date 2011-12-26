@@ -3,6 +3,7 @@ Horses::Application.routes.draw do
 
   root :to => 'horses#index'
 
+  match "/monitor" => "pages#monitor"
   match "/reauthenticate" => "pages#reauthenticate", :as => "reauthenticate"
   match "/privacy" => "pages#privacy", :as => "privacy"
   match "/deauthorize_callback" => "oauth#deauthorize_callback"

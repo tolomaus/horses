@@ -44,5 +44,8 @@ module Horses
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #http://www.simonecarletti.com/blog/2011/05/configuring-rails-3-https-ssl/
+    #config.force_ssl = true
   end
 end

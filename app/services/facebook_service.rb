@@ -3,6 +3,10 @@ require "uri"
 
 class FacebookService
   def register_horse(horse, horse_url, access_token)
+    if Rails.env=='development'
+      #Not possible to receive callbacks from Facebook while the app is running internally
+      return
+    end
     uri = URI.parse("https://graph.facebook.com/me/whitehorsefarm:register")
 
     http = Net::HTTP.new(uri.host, uri.port)
@@ -25,6 +29,10 @@ class FacebookService
   end
 
   def update_horse(horse, horse_url, access_token)
+    if Rails.env=='development'
+      #Not possible to receive callbacks from Facebook while the app is running internally
+      return
+    end
     uri = URI.parse("https://graph.facebook.com")
 
     http = Net::HTTP.new(uri.host, uri.port)

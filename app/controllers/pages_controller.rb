@@ -13,6 +13,9 @@ class PagesController < ApplicationController
     @friends_using_app = @friends_using_app.sort_by{|f| [f["last_name"], f["first_name"]]}
   end
 
+  def monitor
+  end
+
   def reauthenticate
     authenticate_if_necessary true
   end
