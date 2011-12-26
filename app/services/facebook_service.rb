@@ -74,7 +74,6 @@ class FacebookService
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
       Rails.logger.info "Get 'me' from Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
-      return
     end
 
     return parsed_json
