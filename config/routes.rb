@@ -1,16 +1,17 @@
 Horses::Application.routes.draw do
   resources :horses
 
-  root :to => 'horses#index'
+  root :to => 'pages#index'
 
+  #match "/index" => "pages#index", :as => "index"
   match "/monitor" => "pages#monitor"
   match "/reauthenticate" => "pages#reauthenticate", :as => "reauthenticate"
   match "/privacy" => "pages#privacy", :as => "privacy"
-  match "/deauthorize_callback" => "oauth#deauthorize_callback"
   match "/close" => "pages#close", :as => "close"
 
   match "/oath/new" => "oauth#new", :as => "new_oauth"
   match "/oauth/create" => "oauth#create", :via => "get", :as => "oauth_callback"
+  match "/deauthorize_callback" => "oauth#deauthorize_callback"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

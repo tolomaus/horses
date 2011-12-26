@@ -1,17 +1,3 @@
-<% content_for :head do %>
-  <!-- These are Open Graph tags.  They add meta data to your  -->
-  <!-- site that facebook uses when your content is shared     -->
-  <!-- over facebook.  You should fill these tags in with      -->
-  <!-- your data.  To learn more about Open Graph, visit       -->
-  <!-- 'https://developers.facebook.com/docs/opengraph/'       -->
-  <meta property="og:title" content="<%= FACEBOOK_CONFIG['app_name'] %>"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="<%= FACEBOOK_CONFIG['url'] %>"/>
-  <meta property="og:image" content="<%= image_path("app_logo.gif") %>"/>
-  <meta property="og:site_name" content="<%= FACEBOOK_CONFIG['app_name'] %>"/>
-  <meta property="og:locale" content="en_us"/>
-  <meta property="fb:app_id" content="<%= FACEBOOK_CONFIG['app_id'] %>"/>
-<% end %>
 <div class="fb-like" data-href="<%= root_url %>" data-send="true" data-width="450" data-show-faces="true"></div>
 
 <h1>Horses</h1>

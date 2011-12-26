@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   skip_before_filter :authenticate_if_necessary, :only => [:privacy, :deauthorize_callback]
 
+  def index
+  end
+
   def home
     @title = "Home"
 
