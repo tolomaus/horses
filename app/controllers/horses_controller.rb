@@ -3,6 +3,7 @@ class HorsesController < ApplicationController
 
   def index
     @title = "Your horses"
+    cookies[:returning_user]="1"
     @horses = Horse.find_all_by_fb_user_id(@user.id)
   end
 

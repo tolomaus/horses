@@ -2,10 +2,9 @@ class PagesController < ApplicationController
   skip_before_filter :authenticate_if_necessary, :only => [:index, :privacy, :deauthorize_callback]
 
   def index
-    if session[:access_token]
+    if session[:access_token] || cookies[:returning_user]
       redirect_to horses_url
     end
-    @user = Mogli::User.find("me")
   end
 
   def home
