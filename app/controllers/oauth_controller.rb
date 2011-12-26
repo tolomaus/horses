@@ -23,6 +23,10 @@ class OauthController < ApplicationController
     redirect_to "/"
   end
 
+  def deauthorize_callback
+    logger.info params
+  end
+
   def authenticator
     @authenticator ||= Mogli::Authenticator.new(FACEBOOK_CONFIG['app_id'], FACEBOOK_CONFIG['secret'], oauth_callback_url)
   end

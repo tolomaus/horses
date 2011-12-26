@@ -23,10 +23,6 @@ class PagesController < ApplicationController
   def privacy
   end
 
-  def deauthorize_callback
-    logger.info params
-  end
-
   def close
     render :text => "<body onload='window.close();'/>"
   end
