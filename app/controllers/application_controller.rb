@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_if_necessary(force=false)
     if force || session[:access_token]==nil
+      logger.info ""
       redirect_to new_oauth_path
       return false
     end

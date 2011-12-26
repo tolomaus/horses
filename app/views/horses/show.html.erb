@@ -25,7 +25,7 @@
   <img src="<%= !@horse.image.empty? ? @horse.image : "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" %>" >
 </p>
 
-<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+<div class="fb-like" data-href="<%= horse_url @horse %>" data-send="true" data-width="450" data-show-faces="true"></div>
 
 <p>
   <b>Name:</b>
