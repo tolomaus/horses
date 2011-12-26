@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
     @client = Mogli::Client.new(session[:access_token])
     @app = Mogli::Application.find(FACEBOOK_CONFIG['app_id'], @client)
-    @user = Mogli::User.find("me", session[:access_token])
+    @user = Mogli::User.find("me", @client)
   end
 
   def handle_exception(exception)
