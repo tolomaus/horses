@@ -5,7 +5,7 @@
 <script>
   <% if Rails.env != 'development' %>
     if (top === self){
-      window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] + current_url %>");
+      window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] + request.env['PATH_INFO'] %>");
     }
   <% end %>
 </script>
