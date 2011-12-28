@@ -45,7 +45,7 @@
         // the user isn't even logged in to Facebook.
         fb_status = 'logged_off';
 
-        $("#info").html("You are not logged on to Facebook. Please log on to Facebook first.");
+        $("#info").html("You are not yet logged on to Facebook. Please log on to Facebook and we will be right back. If you are not yet connected to the app, Facebook will ask you to give your approval after you have logged on.");
       }
     });
   }
@@ -54,7 +54,7 @@
 <div id="info"></div>
 
 <div id="connect" style="display:none">
-  <p>You have not yet connected the app to your Facebook account.</p>
+  <p>You are not yet connected to the app.</p>
   <%= link_to "Connect", horses_url %>
 </div>
 

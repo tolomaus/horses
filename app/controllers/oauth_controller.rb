@@ -22,7 +22,7 @@ class OauthController < ApplicationController
     session[:access_token]=mogli_client.access_token
     session[:access_token_expiration]=mogli_client.expiration
     logger.info "Authentication succeeded: client access token = #{mogli_client.access_token}"
-    redirect_to FACEBOOK_CONFIG['canvas_url'] + horses_path
+    redirect_to root_url #FACEBOOK_CONFIG['canvas_url'] + horses_path
   end
 
   def cleanup
