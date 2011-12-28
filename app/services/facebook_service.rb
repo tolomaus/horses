@@ -18,8 +18,6 @@ class FacebookService
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data({"access_token" => access_token, "horse" => horse_url})
     response = http.request(request)
-    Rails.logger.info "response: #{response.code}: #{response.message}"
-    Rails.logger.info "response body: #{response.body}"
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
       raise "Registration of horse #{horse.name} (id: #{horse.id}) to Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
@@ -44,8 +42,6 @@ class FacebookService
     request = Net::HTTP::Post.new(uri.request_uri)
     request.set_form_data({"id" => horse_url, "scrape" => "true"})
     response = http.request(request)
-    Rails.logger.info "response: #{response.code}: #{response.message}"
-    Rails.logger.info "response body: #{response.body}"
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
       raise "Update of horse #{horse.name} (id: #{horse.id}) to Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
@@ -65,8 +61,6 @@ class FacebookService
 
     request = Net::HTTP::Get.new(uri.request_uri)
     response = http.request(request)
-    Rails.logger.info "response: #{response.code}: #{response.message}"
-    Rails.logger.info "response body: #{response.body}"
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
       Rails.logger.info "Get 'me' from Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
