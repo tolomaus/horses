@@ -1,6 +1,6 @@
 class OauthController < ApplicationController
   skip_before_filter :authenticate_if_necessary
-  FACEBOOK_SCOPE = 'user_likes,user_photos,publish_actions,user_videos'
+  FACEBOOK_SCOPE = 'user_likes,user_photos,publish_actions,user_videos,user_actions:whitehorsefarm,friends_actions:whitehorsefarm'
 
   def new
     logger.info "Authentication is requested ..."
