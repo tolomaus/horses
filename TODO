@@ -9,11 +9,12 @@ Release 1:
 - Add a link to a photo album & video album
 - Translate the app in Dutch & French
 - Get the flash message shown wherever necessary
-- Create a logon screen showing the user's friends that also use the app (to be finished up)
+- Create a logon screen showing the user's friends (or other users) that also use the app (to be finished up)
 - Cache the channel file: https://developers.facebook.com/docs/reference/javascript/
 - Re-add returning_user cookie to avoid the redirect index->horses delay for returning users
+- Make the app visible (read-only) to non-Facebook users
 
-- Investigate why the app is not shown inside the facebook container after authenticating for first time usage
+- Solve "WARNING: Can't verify CSRF token authenticity"-issue
 
 - Register a permanent domain name (e.g. whitehorsefarm.org) before going live because the url is used as the identifier of a horse
 

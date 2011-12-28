@@ -30,34 +30,33 @@
         fb_status = 'connected';
         var fb_uid = response.authResponse.userID;
         var fb_accessToken = response.authResponse.accessToken;
+
+        window.location.replace("<%= horses_path %>");
       } else if (response.status === 'not_authorized') {
         // the user is logged in to Facebook,
         //but not connected to the app
         fb_status = 'logged_on';
+
+        $("#connect").show();
+
+        $("#facepile").html("<fb:facepile></fb:facepile>");
+        FB.XFBML.parse(document.getElementById("#facepile"));
       } else {
         // the user isn't even logged in to Facebook.
         fb_status = 'logged_off';
-      }
 
-      $("#info").html("You are " + fb_status);
-      if (fb_status == 'connected'){
-        window.location.replace("<%= horses_path %>");
-      }
-      if (fb_status == 'logged_on'){
-        $("#facepile").html("<fb:facepile></fb:facepile>");
-        FB.XFBML.parse(document.getElementById("#facepile"));
+        $("#info").html("You are not logged on to Facebook. Please log on to Facebook first.");
       }
     });
-  }
-
-  function buttonClick(){
-    $("#facepile").html("<fb:like send='true' width='450' show_faces='true'></fb:like>");
   }
 </script>
 
 <div id="info"></div>
 
-<%= link_to "Enter", horses_url %>
+<div id="connect" style="display:none">
+  <p>You have not yet connected the app to your Facebook account.</p>
+  <%= link_to "Connect", horses_url %>
+</div>
 
 <div id="facepile">
 </div>

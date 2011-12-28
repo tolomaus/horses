@@ -11,7 +11,6 @@ class OauthController < ApplicationController
   
   def create    
     logger.info "Authentication callback is called ..."
-    logger.info params
     if params[:error]
       logger.error "oauth.create received an authentication error: #{params}"
       @error = params[:error]
@@ -23,7 +22,7 @@ class OauthController < ApplicationController
     session[:access_token]=mogli_client.access_token
     session[:access_token_expiration]=mogli_client.expiration
     logger.info "Authentication succeeded: client access token = #{mogli_client.access_token}"
-    redirect_to "#{FACEBOOK_CONFIG['canvas_url']}/#{horses_url}"
+    redirect_to FACEBOOK_CONFIG['canvas_url'] + horses_path
   end
 
   def cleanup
