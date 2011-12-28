@@ -9,12 +9,12 @@
 <% end %>
 
 <script>
-  $(document).read  <% if Rails.env != 'development' %>
+  <% if Rails.env != 'development' %>
     if (top === self){
-      window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] %>");
+      window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] + request.env['PATH_INFO'] %>");
     }
   <% end %>
-  (function() {
+  $(document).ready(function() {
     //alert("document ready <%= Rails.env %>");
   });
   function facebookInitialized(){
