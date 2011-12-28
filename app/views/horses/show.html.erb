@@ -19,6 +19,10 @@
   <meta property="whitehorsefarm:rider"  content="<%= @horse.rider %>" />
 <% end %>
 
+<% content_for :body_init do %>
+  <%= render :partial => 'shared/fb_js_init' %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <p>

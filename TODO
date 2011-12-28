@@ -10,6 +10,7 @@ Release 1:
 - Translate the app in Dutch & French
 - Get the flash message shown wherever necessary
 - Create a logon screen showing the user's friends that also use the app (to be finished up)
+- Cache the channel file: https://developers.facebook.com/docs/reference/javascript/
 
 - Investigate why the app is not shown inside the facebook container after authenticating for first time usage
 

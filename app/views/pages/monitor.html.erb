@@ -1,6 +1,9 @@
 <% content_for :html_attributes do %>
   xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"
 <% end %>
+<% content_for :body_init do %>
+  <%= render :partial => 'shared/fb_js_init' %>
+<% end %>
 
 <h3>HTML5</h3>
 <p>Activity feed:</p>

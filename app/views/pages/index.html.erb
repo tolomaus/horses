@@ -4,9 +4,60 @@
 <% content_for :head do %>
   <%= render :partial => 'shared/metatags' %>
 <% end %>
+<% content_for :body_init do %>
+  <%= render :partial => 'shared/fb_js_init' %>
+<% end %>
 
-<h1>Home page</h1>
+<script>
+  <% if Rails.env != 'development' %>
+    if(window.location.href.indexOf("<%= FACEBOOK_CONFIG['canvas_url'] %>") == -1){
+      alert("replacing" + window.location);
+      window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] %>");
+    }
+  <% end %>
+  $(document).ready(function() {
+    //alert("document ready <%= Rails.env %>");
+  });
+  function facebookInitialized(){
+    FB.getLoginStatus(function(response) {
+      var fb_status;
+      if (response.status === 'connected') {
+        // the user is logged in and connected to your
+        // app, and response.authResponse supplies
+        // the user's ID, a valid access token, a signed
+        // request, and the time the access token
+        // and signed request each expire
+        fb_status = 'connected';
+        var fb_uid = response.authResponse.userID;
+        var fb_accessToken = response.authResponse.accessToken;
+      } else if (response.status === 'not_authorized') {
+        // the user is logged in to Facebook,
+        //but not connected to the app
+        fb_status = 'logged_on';
+      } else {
+        // the user isn't even logged in to Facebook.
+        fb_status = 'logged_off';
+      }
+
+      $("#info").html(fb_status);
+      if (fb_status == 'connected'){
+        window.location.replace("<%= horses_path %>");
+      }
+      if (fb_status == 'logged_on'){
+        $("#facepile").html("<fb:facepile></fb:facepile>");
+        FB.XFBML.parse(document.getElementById("#facepile"));
+      }
+    });
+  }
+
+  function buttonClick(){
+    $("#facepile").html("<fb:like send='true' width='450' show_faces='true'></fb:like>");
+  }
+</script>
+
+<div id="info"></div>
+
 <%= link_to "Enter", horses_url %>
 
-<p>Face pile:</p>
-<fb:facepile></fb:facepile>
+<div id="facepile">
+</div>

@@ -55,10 +55,6 @@ class FacebookService
   end
 
   def get_me(access_token)
-    if Rails.env=='development'
-      #Not possible to receive callbacks from Facebook while the app is running internally
-      return
-    end
     uri = URI.parse("https://graph.facebook.com/me?access_token=#{access_token}")
 
     http = Net::HTTP.new(uri.host, uri.port)

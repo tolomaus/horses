@@ -2,9 +2,9 @@ class PagesController < ApplicationController
   skip_before_filter :authenticate_if_necessary, :only => [:index, :privacy, :deauthorize_callback]
 
   def index
-    logger.info "Returning user: #{cookies[:returning_user]}"
     logger.info "Access token: #{session[:access_token]}"
-    if session[:access_token] || cookies[:returning_user]
+    if session[:access_token]
+      logger.info "An access token is available, therefore we can immediately redirecting to horses_url ... "
       redirect_to horses_url
     end
   end
