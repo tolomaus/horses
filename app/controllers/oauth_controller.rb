@@ -1,6 +1,6 @@
 class OauthController < ApplicationController
   skip_before_filter :authenticate_if_necessary
-  FACEBOOK_SCOPE = 'user_likes,user_photos,publish_actions,user_videos,user_actions:whitehorsefarm,friends_actions:whitehorsefarm'
+  FACEBOOK_SCOPE = 'user_likes,user_photos,user_videos,publish_actions,user_actions:whitehorsefarm,friends_actions:whitehorsefarm'
 
   def new
     logger.info "Authentication is requested ..."
@@ -11,6 +11,7 @@ class OauthController < ApplicationController
   
   def create    
     logger.info "Authentication callback is called ..."
+    logger.info params
     if params[:error]
       logger.error "oauth.create received an authentication error: #{params}"
       @error = params[:error]
@@ -22,7 +23,7 @@ class OauthController < ApplicationController
     session[:access_token]=mogli_client.access_token
     session[:access_token_expiration]=mogli_client.expiration
     logger.info "Authentication succeeded: client access token = #{mogli_client.access_token}"
-    redirect_to horses_url
+    redirect_to "#{FACEBOOK_CONFIG['canvas_url']}/#{horses_url}"
   end
 
   def cleanup

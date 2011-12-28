@@ -6,6 +6,7 @@ class PagesController < ApplicationController
     if session[:access_token]
       logger.info "An access token is available, therefore we can immediately redirecting to horses_url ... "
       redirect_to horses_url
+      return
     end
   end
 

@@ -40,6 +40,7 @@ class HorsesController < ApplicationController
     @horse = Horse.find(params[:id])
     if @horse.fb_user_id != @user.id
       redirect_to @horse, :flash => { :error => "You are not allowed to edit this horse." }
+      return
     end
   end
 
@@ -51,6 +52,7 @@ class HorsesController < ApplicationController
     if @horse.update_attributes(params[:horse])
       FacebookService.new.update_horse! @horse, horse_url(@horse), session[:access_token]
       redirect_to @horse, :flash => { :success => "Horse was successfully updated." }
+      return
     else
       @title = "Edit your horse"
       render 'edit'
@@ -61,6 +63,7 @@ class HorsesController < ApplicationController
     @horse = Horse.find(params[:id])
     if @horse.fb_user_id != @user.id
       redirect_to @horse, :flash => { :error => "You are not allowed to delete this horse." }
+      return
     end
     @horse.destroy
     redirect_to horses_path
