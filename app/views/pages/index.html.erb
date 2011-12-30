@@ -9,16 +9,33 @@
 <% end %>
 
 <script>
-  <% if Rails.env != 'development' %>
-    if (top === self){
-      window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] + request.env['PATH_INFO'] %>");
-    }
-  <% end %>
   $(document).ready(function() {
     //alert("document ready <%= Rails.env %>");
   });
   function facebookInitialized(){
+    FB.Event.subscribe('auth.login', function(response) {
+      // Reload the entire page. Could also do an Ajax request and dynamically
+      // update the already loaded page.
+      //This will send the signed_request to the app
+      alert("subscribe auth.login");
+      window.location.reload(true);
+    });
+
+    FB.Event.subscribe('auth.logout', function() {
+      // Do something...
+    });
+
+    function handleSessionChange(response) {
+      alert("subscribe auth.sessionChange");
+      if ((Config.userIdOnServer && !response.session) ||
+          Config.userIdOnServer != response.session.uid) {
+        top.location = 'https://apps.facebook.com/' + Config.canvasName + '/';
+      }
+    }
+    FB.Event.subscribe('auth.sessionChange', handleSessionChange);
+
     FB.getLoginStatus(function(response) {
+      alert(response.status);
       var fb_status;
       if (response.status === 'connected') {
         // the user is logged in and connected to your
@@ -38,13 +55,18 @@
 
         $("#connect").show();
 
-        $("#facepile").html("<fb:facepile></fb:facepile>");
-        FB.XFBML.parse(document.getElementById("#facepile"));
+        $("#fb_plugins").html("<fb:facepile></fb:facepile><fb:login-button show-faces='true'></fb:login-button>");
+        FB.XFBML.parse(document.getElementById("#fb_plugins"));
       } else {
         // the user isn't even logged in to Facebook.
         fb_status = 'logged_off';
 
         $("#info").html("You are not yet logged on to Facebook. Please log on to Facebook and we will be right back. If you are not yet connected to the app, Facebook will ask you to give your approval after you have logged on.");
+
+        $("#connect").show();
+
+        $("#fb_plugins").html("<fb:facepile></fb:facepile><fb:login-button show-faces='true'></fb:login-button>");
+        FB.XFBML.parse(document.getElementById("#fb_plugins"));
       }
     });
   }
@@ -57,5 +79,5 @@
   <%= link_to "Connect", horses_url %>
 </div>
 
-<div id="facepile">
+<div id="fb_plugins">
 </div>

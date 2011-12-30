@@ -1,12 +1,12 @@
 class PagesController < ApplicationController
-  skip_before_filter :authenticate_if_necessary, :only => [:index, :privacy, :deauthorize_callback]
+  skip_before_filter :ensure_authenticated_to_facebook, :only => [:index, :privacy, :deauthorize_callback]
 
   def index
     @title = "Home"
-    if session[:access_token]
-      logger.info "An access token is available, therefore we can immediately redirecting to horses_url ... "
-      redirect_to horses_url
-      return
+    fetch_client_and_user
+    if current_facebook_client
+      logger.info "An access token is available, therefore we can immediately redirect to horses_url ... "
+      redirect_to horses_url and return
     end
   end
 

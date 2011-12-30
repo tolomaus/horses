@@ -34,3 +34,5 @@ gem 'execjs'
 gem 'therubyracer'
 
 gem 'mogli'
+gem 'ruby-hmac'
+gem 'facebooker2'

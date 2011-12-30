@@ -1,5 +1,5 @@
 class HorsesController < ApplicationController
-  skip_before_filter :authenticate_if_necessary, :only => [:show]
+  skip_before_filter :ensure_authenticated_to_facebook , :only => [:show]
 
   def index
     @title = "Your horses"
@@ -39,8 +39,7 @@ class HorsesController < ApplicationController
     @title = "Edit your horse"
     @horse = Horse.find(params[:id])
     if @horse.fb_user_id != @user.id
-      redirect_to @horse, :flash => { :error => "You are not allowed to edit this horse." }
-      return
+      redirect_to @horse, :flash => { :error => "You are not allowed to edit this horse." } and return
     end
   end
 
@@ -51,8 +50,7 @@ class HorsesController < ApplicationController
     end
     if @horse.update_attributes(params[:horse])
       FacebookService.new.update_horse! @horse, horse_url(@horse), session[:access_token]
-      redirect_to @horse, :flash => { :success => "Horse was successfully updated." }
-      return
+      redirect_to @horse, :flash => { :success => "Horse was successfully updated." } and return
     else
       @title = "Edit your horse"
       render 'edit'
@@ -62,10 +60,9 @@ class HorsesController < ApplicationController
   def destroy
     @horse = Horse.find(params[:id])
     if @horse.fb_user_id != @user.id
-      redirect_to @horse, :flash => { :error => "You are not allowed to delete this horse." }
-      return
+      redirect_to @horse, :flash => { :error => "You are not allowed to delete this horse." } and return
     end
     @horse.destroy
-    redirect_to horses_path
+    redirect_to horses_path and return
   end
 end

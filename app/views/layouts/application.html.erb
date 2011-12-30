@@ -12,6 +12,19 @@
 
 <%= yield :body_init %>
 
+<div id="error">
+  <% if flash[:exception] %>
+    <p>Type: <%= flash[:exception].type %></p>
+    <p>Message: <%= flash[:exception].message %></p>
+  <% end %>
+</div>
+
+<script>
+  if (window === top){
+    window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] + request.env['PATH_INFO'] %>");
+  }
+</script>
+
 <h1>
   <%= image_tag("whitehorse_square.jpg", :alt => FACEBOOK_CONFIG['app_name'], :width => 100, :height => 100) %>
   <%=	FACEBOOK_CONFIG['app_name'] %>
