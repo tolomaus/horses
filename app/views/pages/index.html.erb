@@ -35,15 +35,13 @@
     FB.Event.subscribe('auth.sessionChange', handleSessionChange);
 
     FB.getLoginStatus(function(response) {
-      alert(response.status);
-      var fb_status;
+      $("#fb_status").html("status: " + response.status);
       if (response.status === 'connected') {
         // the user is logged in and connected to your
         // app, and response.authResponse supplies
         // the user's ID, a valid access token, a signed
         // request, and the time the access token
         // and signed request each expire
-        fb_status = 'connected';
         var fb_uid = response.authResponse.userID;
         var fb_accessToken = response.authResponse.accessToken;
 
@@ -51,7 +49,8 @@
       } else if (response.status === 'not_authorized') {
         // the user is logged in to Facebook,
         //but not connected to the app
-        fb_status = 'logged_on';
+
+        $("#info").html("You are not yet connected to the app.");
 
         $("#connect").show();
 
@@ -61,10 +60,6 @@
         // the user isn't even logged in to Facebook.
         fb_status = 'logged_off';
 
-        $("#info").html("You are not yet logged on to Facebook. Please log on to Facebook and we will be right back. If you are not yet connected to the app, Facebook will ask you to give your approval after you have logged on.");
-
-        $("#connect").show();
-
         $("#fb_plugins").html("<fb:facepile></fb:facepile><fb:login-button show-faces='true'></fb:login-button>");
         FB.XFBML.parse(document.getElementById("#fb_plugins"));
       }
@@ -73,9 +68,9 @@
 </script>
 
 <div id="info"></div>
+<div id="fb_status"></div>
 
 <div id="connect" style="display:none">
-  <p>You are not yet connected to the app.</p>
   <%= link_to "Connect", horses_url %>
 </div>
 
