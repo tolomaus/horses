@@ -52,13 +52,12 @@
 
         $("#info").html("You are not yet connected to the app.");
 
-        $("#connect").show();
-
         $("#fb_plugins").html("<fb:facepile></fb:facepile><fb:login-button show-faces='true'></fb:login-button>");
         FB.XFBML.parse(document.getElementById("#fb_plugins"));
       } else {
         // the user isn't even logged in to Facebook.
-        fb_status = 'logged_off';
+
+        $("#info").html("You are not logged on to Facebook.");
 
         $("#fb_plugins").html("<fb:facepile></fb:facepile><fb:login-button show-faces='true'></fb:login-button>");
         FB.XFBML.parse(document.getElementById("#fb_plugins"));
@@ -67,8 +66,9 @@
   }
 </script>
 
-<div id="info"></div>
 <div id="fb_status"></div>
+
+<div id="info"></div>
 
 <div id="connect" style="display:none">
   <%= link_to "Connect", horses_url %>
@@ -76,3 +76,11 @@
 
 <div id="fb_plugins">
 </div>
+
+<div class="round">
+  <% flash.each do |key, value| %>
+    <div class="flash <%= key %>"><%= value %></div>
+  <% end %>
+  <%= yield %>
+</div>
+<%= debug(params) if Rails.env.development? %>

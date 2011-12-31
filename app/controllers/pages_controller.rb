@@ -8,6 +8,7 @@ class PagesController < ApplicationController
       logger.info "An access token is available, therefore we can immediately redirect to horses_url ... "
       redirect_to horses_url and return
     end
+    logger.info "An access token is available, therefore we can immediately redirect to horses_url ... "
   end
 
   #def home
