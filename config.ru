@@ -2,7 +2,7 @@
 
 require ::File.expand_path('../config/environment',  __FILE__)
 
-# use Rack::PostCanvas
+use Rack::PostCanvas
 
 run Horses::Application
 
