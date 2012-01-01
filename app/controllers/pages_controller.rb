@@ -26,6 +26,10 @@ class PagesController < ApplicationController
   def monitor
   end
 
+  def cleanup_auth
+    cleanup_auth_cookie
+  end
+
   def privacy
   end
 

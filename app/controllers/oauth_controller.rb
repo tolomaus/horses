@@ -24,12 +24,12 @@ class OauthController < ApplicationController
     logger.info "Authentication succeeded: client access token = #{mogli_client.access_token}"
     redirect_to root_url #FACEBOOK_CONFIG['canvas_url'] + horses_path
   end
-
-  def cleanup
-    session[:access_token]=nil
-    session[:access_token_expiration]=nil
-    redirect_to root_url
-  end
+  #
+  #def cleanup
+  #  session[:access_token]=nil
+  #  session[:access_token_expiration]=nil
+  #  redirect_to root_url
+  #end
 
   def deauthorize_callback
     logger.info "Deauthorize callback is called ..."

@@ -4,12 +4,12 @@ Horses::Application.routes.draw do
   root :to => 'pages#index'
 
   match "/monitor" => "pages#monitor"
+  match "/cleanup_auth" => "pages#cleanup_auth"
   match "/privacy" => "pages#privacy", :as => "privacy"
   match "/close" => "pages#close", :as => "close"
 
   match "/oath/new" => "oauth#new", :as => "new_oauth"
   match "/oauth/create" => "oauth#create", :via => "get", :as => "oauth_callback"
-  match "/cleanup_auth" => "oauth#cleanup"
   match "/deauthorize_callback" => "oauth#deauthorize_callback"
 
   # The priority is based upon order of creation:

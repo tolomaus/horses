@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     #check if the access token is still valid
     if @_current_facebook_client.expiration < (Time.now + 5.minutes)
       logger.info "The access_token has expired, therefore we must re-authenticate the user."
-      cookies.delete fb_cookie_name#cookie should have the same expiration date as the access token but this is not implemented as such yet by Mogli
+      cleanup_auth_cookie #cookie should have the same expiration date as the access token but this is not implemented as such yet by Mogli
       redirect_to root_path and return false
     end
     #
@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
     @client = current_facebook_client
     @app = Mogli::Application.find(FACEBOOK_CONFIG['app_id'], @client)
     @user = Mogli::User.find("me", @client)
+  end
+
+  def cleanup_auth_cookie
+    cookies.delete fb_cookie_name
   end
 
   def handle_fb_auth_exception(exception)
