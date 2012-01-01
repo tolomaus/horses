@@ -45,7 +45,7 @@
         var fb_uid = response.authResponse.userID;
         var fb_accessToken = response.authResponse.accessToken;
 
-        window.location.replace("<%= horses_path %>");
+        window.location.reload(true);
       } else if (response.status === 'not_authorized') {
         // the user is logged in to Facebook,
         //but not connected to the app
@@ -57,10 +57,7 @@
       } else {
         // the user isn't even logged in to Facebook.
 
-        $("#info").html("You are not logged on to Facebook.");
-
-        $("#fb_plugins").html("<fb:facepile></fb:facepile><fb:login-button show-faces='true'></fb:login-button>");
-        FB.XFBML.parse(document.getElementById("#fb_plugins"));
+        $("#info").html("You are not logged on to Facebook. Log in (or sign up if you don't have a Facebook account yet) and we'll be right back!");
       }
     });
   }

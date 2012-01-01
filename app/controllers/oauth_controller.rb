@@ -1,5 +1,5 @@
 class OauthController < ApplicationController
-  skip_before_filter :authenticate_if_necessary
+  skip_before_filter :ensure_authenticated_to_facebook
   FACEBOOK_SCOPE = 'user_likes,user_photos,user_videos,publish_actions'#',user_actions:whitehorsefarm,friends_actions:whitehorsefarm'
 
   def new
@@ -16,7 +16,7 @@ class OauthController < ApplicationController
       @error = params[:error]
       @error_reason = params[:error_reason]
       @error_description = params[:error_description]
-      render 'error'
+      render 'error' and return
     end
     mogli_client = Mogli::Client.create_from_code_and_authenticator(params[:code],authenticator)
     session[:access_token]=mogli_client.access_token
