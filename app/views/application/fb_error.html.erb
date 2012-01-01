@@ -1,0 +1,14 @@
+<div id="error">
+  <p>Oeps, an unforeseen error has occurred!</p>
+  <p>Hopefully it will go away by itself whe, you return to the <%= link_to "home page", root_url %> </p>
+  <p>If this doesn't solve the problem please get in contact with us.</p>
+  <p>More details on the error that has occurred:</p>
+  <ul>
+    <li>
+      Error: <%= flash[:exception].class %>
+    </li>
+    <li>
+      Message: <%= flash[:exception].message %>
+    </li>
+  </ul>
+</div>

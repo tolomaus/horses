@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :ensure_authenticated_to_facebook
   before_filter :set_p3p_header_for_third_party_cookies
-  rescue_from Mogli::Client::ClientException, :with => :handle_fb_auth_exception
+  rescue_from Mogli::Client::ClientException, :with => :handle_fb_exception
 
   def ensure_authenticated_to_facebook
     fetch_client_and_user
@@ -45,11 +45,11 @@ class ApplicationController < ActionController::Base
     cookies.delete fb_cookie_name
   end
 
-  def handle_fb_auth_exception(exception)
+  def handle_fb_exception(exception)
     logger.warn exception
     flash[:exception] = exception
 
-    render 'shared/error'
+    render 'fb_exception'
   end
 
   def handle_exception(exception)
