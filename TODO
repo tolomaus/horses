@@ -1,6 +1,6 @@
 Release 1:
 - Use FQL to retrieve the id of a new horse instead of sending an update request
-- Add action buttons on the index page (Ajax)
+- Add action buttons on the horses index page (Ajax)
 - Use the facebook look and feel
 - Add "friends who are using this app", also show their horses
 - Add "Others who are using this app", also show their horses

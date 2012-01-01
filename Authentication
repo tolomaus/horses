@@ -18,11 +18,14 @@ I) Either by navigating to apps.facebook.com/whitehorsefarm or by clicking on th
   4) logged on - connected
   5) invalid access token (log off - log in)
     a) When navigating to WHF from the APPS link, FB will send a valid signed_request which WHF will use to replace the old one
-    b) When logging of - on from another tab, FB will automatically notify the user on the WHF tab that he must sign back in. Once the user has signed back in , FB will (probably) do a POST to "/"
-    c) When navigating to a non-root url WHF will throw an error saying that the access token is not valid anymore. (Navigating to "/" should solve the problem.)
+    b) When the FB js SDK is loaded on the current page and when logging of - on from another page, FB will automatically notify the user on the WHF tab that he must sign back in. Once the user has signed back in , FB will (probably) do a POST to "/"
+    c) When the FB js SDK is not loaded on the current page and when logging of - on from another page, when clicking a link on the current page, the user doesn't notice anything (to be further investigated what actually happens here)
+    d) When navigating to a non-root url from a new tab WHF will throw an error saying that the access token is not valid anymore. (Navigating to "/" should solve the problem.)
+    2012/01/01: d) seems to work fine without the user noticing anything ...
 II) By navigating to whitehorsefarm.herokuapp.com
+  The page that is loaded will automatically redirect through js to apps.facebook.com/whitehorsefarm/<path>
 
-
+TODO (but not necessary at the moment):
 Server side (Oauth):
 I) Either by navigating to apps.facebook.com/whitehorsefarm or by clicking on the app within Facebook
   1) not logged on - not connected

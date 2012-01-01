@@ -2,7 +2,11 @@ require 'net/http'
 require "uri"
 
 class FacebookService
-  def register_horse!(horse, horse_url, access_token)
+  def initialize( access_token )
+    @access_token = access_token
+  end
+
+  def register_horse!(horse, horse_url)
     if Rails.env=='development'
       #Not possible to receive callbacks from Facebook while the app is running internally
       return
@@ -16,7 +20,7 @@ class FacebookService
     Rails.logger.info "Calling Facebook server #{uri} with url #{horse_url} to register #{horse.name} (id #{horse.id})"
 
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data({"access_token" => access_token, "horse" => horse_url})
+    request.set_form_data({"access_token" => @access_token, "horse" => horse_url})
     response = http.request(request)
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
@@ -26,7 +30,7 @@ class FacebookService
     return parsed_json[:id]
   end
 
-  def update_horse!(horse, horse_url, access_token)
+  def update_horse!(horse, horse_url)
     if Rails.env=='development'
       #Not possible to receive callbacks from Facebook while the app is running internally
       return

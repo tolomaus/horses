@@ -2,13 +2,6 @@
   <%= render :partial => 'shared/metatags' %>
 <% end %>
 
-<script>
-  <% if Rails.env != 'development' %>
-    if (top === self){
-      window.location.replace("<%= FACEBOOK_CONFIG['canvas_url'] + request.env['PATH_INFO'] %>");
-    }
-  <% end %>
-</script>
 <div class="fb-like" data-href="<%= root_url %>" data-send="true" data-width="450" data-show-faces="true"></div>
 
 <h2>Horses</h2>

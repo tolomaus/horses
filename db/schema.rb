@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111225104413) do
+ActiveRecord::Schema.define(:version => 20120101205958) do
+
+  create_table "action_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "actions", :force => true do |t|
+    t.string   "name"
+    t.string   "fb_action_id"
+    t.integer  "user_id"
+    t.integer  "horse_id"
+    t.integer  "action_type_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.datetime "occurred"
+  end
+
+  add_index "actions", ["action_type_id"], :name => "index_actions_on_action_type_id"
+  add_index "actions", ["horse_id"], :name => "index_actions_on_horse_id"
+  add_index "actions", ["user_id", "horse_id", "action_type_id"], :name => "index_actions_on_user_id_and_horse_id_and_action_type_id", :unique => true
+  add_index "actions", ["user_id"], :name => "index_actions_on_user_id"
 
   create_table "horses", :force => true do |t|
     t.string   "name"
@@ -19,21 +41,44 @@ ActiveRecord::Schema.define(:version => 20111225104413) do
     t.string   "image"
     t.string   "owner"
     t.string   "rider"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.string   "fb_registration_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "fb_object_id"
-    t.string   "fb_user_id"
   end
+
+  create_table "relationships", :force => true do |t|
+    t.integer  "user_id",      :null => false
+    t.integer  "horse_id",     :null => false
+    t.integer  "user_role_id", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "relationships", ["horse_id"], :name => "index_relationships_on_horse_id"
+  add_index "relationships", ["user_id", "horse_id", "user_role_id"], :name => "index_relationships_on_user_id_and_horse_id_and_user_role_id", :unique => true
+  add_index "relationships", ["user_id"], :name => "index_relationships_on_user_id"
+  add_index "relationships", ["user_role_id"], :name => "index_relationships_on_user_role_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "user_roles", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "fb_user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
