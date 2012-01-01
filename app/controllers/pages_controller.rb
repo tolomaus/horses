@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_filter :ensure_authenticated_to_facebook, :only => [:index, :privacy, :deauthorize_callback]
+  skip_before_filter :ensure_authenticated_to_facebook, :only => [:index, :cleanup_auth, :privacy]
 
   def index
     @title = "Home"
@@ -31,9 +31,5 @@ class PagesController < ApplicationController
   end
 
   def privacy
-  end
-
-  def close
-    render :text => "<body onload='window.close();'/>"
   end
 end

@@ -1,7 +1,16 @@
 Client side (Javascript - Canvas):
 I) Either by navigating to apps.facebook.com/whitehorsefarm or by clicking on the app within Facebook
   1) not logged on - not connected
+    FB does a POST to "/" with an invalid signed_request
+    User must first log in from the top frame
+    FB will immediately ask the user to authorize the app
+    After the user has approved, FB will do another POST to "/" but now with a valid signed_request
+    Pages#index will redirect to horses
   2) not logged on - connected
+    FB does a POST to "/" with an invalid signed_request
+    User must first log in from the top frame
+    FB will do another POST to "/" but now with a valid signed_request
+    Pages#index will redirect to horses
   3) logged on - not connected
   4) logged on - connected
   5) invalid access token
