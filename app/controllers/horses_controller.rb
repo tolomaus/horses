@@ -18,13 +18,11 @@ class HorsesController < ApplicationController
 
   def create
     @horse = Horse.new(params[:horse])
-    @horse.user_id = @user.id
     if @horse.save
       #horse must have an internal id before registering it to Facebook
       facebook_service = FacebookService.new(@_current_facebook_client.access_token)
-      @action = Action.new
-
-      @horse.fb_registration_id = facebook_service.register_horse! @horse, horse_url(@horse)
+      @action = Action.new(:user => @user)
+      @action.fb_action_id = facebook_service.register_horse! @horse, horse_url(@horse)
       @horse.fb_object_id = facebook_service.update_horse! @horse, horse_url(@horse)
       @_current_facebook_client.fql_query("SELECT uid, name, first_name, last_name FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
       if @horse.save

@@ -8,5 +8,12 @@
 action_type = ActionType.find_or_create_by_name(:name => "Register")
 action_type = ActionType.find_or_create_by_name(:name => "Ride")
 action_type = ActionType.find_or_create_by_name(:name => "Compete")
+action_type = ActionType.find_or_create_by_name(:name => "Compete")
 
-user_role = UserRole.find_or_create_by_name(:name => "Compete")
+user_role = UserRole.find_or_create_by_name(:name => "Representative")
+user_role = UserRole.find_or_create_by_name(:name => "Rider")
+user_role = UserRole.find_or_create_by_name(:name => "Owner")
+user_role = UserRole.find_or_create_by_name(:name => "Groom")
+user_role = UserRole.find_or_create_by_name(:name => "Trainer")
+user_role = UserRole.find_or_create_by_name(:name => "Fan")
+

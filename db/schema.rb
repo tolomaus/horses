@@ -11,38 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120101205958) do
+ActiveRecord::Schema.define(:version => 20120102211631) do
 
   create_table "action_types", :force => true do |t|
-    t.string   "name"
+    t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "action_types", ["name"], :name => "index_action_types_on_name", :unique => true
+
   create_table "actions", :force => true do |t|
-    t.string   "name"
-    t.string   "fb_action_id"
-    t.integer  "user_id"
-    t.integer  "horse_id"
-    t.integer  "action_type_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.datetime "occurred"
+    t.string   "fb_action_id",                  :null => false
+    t.integer  "user_id",                       :null => false
+    t.integer  "horse_id",                      :null => false
+    t.integer  "action_type_id",                :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.datetime "occurred_at",    :limit => 255, :null => false
   end
 
   add_index "actions", ["action_type_id"], :name => "index_actions_on_action_type_id"
   add_index "actions", ["horse_id"], :name => "index_actions_on_horse_id"
-  add_index "actions", ["user_id", "horse_id", "action_type_id"], :name => "index_actions_on_user_id_and_horse_id_and_action_type_id", :unique => true
+  add_index "actions", ["user_id", "horse_id", "action_type_id"], :name => "index_actions_ud_hid_atid", :unique => true
   add_index "actions", ["user_id"], :name => "index_actions_on_user_id"
 
   create_table "horses", :force => true do |t|
-    t.string   "name"
+    t.string   "name",         :null => false
     t.string   "description"
     t.string   "image"
-    t.string   "owner"
-    t.string   "rider"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "fb_object_id"
   end
 
@@ -76,9 +75,11 @@ ActiveRecord::Schema.define(:version => 20120101205958) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "fb_user_id"
+    t.string   "fb_user_id", :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "users", ["fb_user_id"], :name => "index_users_on_fb_user_id", :unique => true
 
 end
