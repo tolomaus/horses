@@ -2,8 +2,8 @@ require 'net/http'
 require "uri"
 
 class FacebookService
-  def initialize( access_token )
-    @access_token = access_token
+  def initialize( fb_client )
+    @fb_client = fb_client
   end
 
   def register_horse!(horse, horse_url)
@@ -20,7 +20,7 @@ class FacebookService
     Rails.logger.info "Calling Facebook server #{uri} with url #{horse_url} to register #{horse.name} (id #{horse.id})"
 
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data({"access_token" => @access_token, "horse" => horse_url})
+    request.set_form_data({"access_token" => @fb_client.access_token, "horse" => horse_url})
     response = http.request(request)
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
@@ -54,8 +54,8 @@ class FacebookService
     return parsed_json[:id]
   end
 
-  def get_me(access_token)
-    uri = URI.parse("https://graph.facebook.com/me?access_token=#{access_token}")
+  def get_me(fb_client)
+    uri = URI.parse("https://graph.facebook.com/me?access_token=#{@fb_client.access_token}")
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -71,5 +71,10 @@ class FacebookService
     end
 
     return parsed_json
+  end
+
+  def find_id_by_horse_url!(horse_url)
+    @fb_client.fql_query("SELECT uid, name, first_name, last_name FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
+
   end
 end

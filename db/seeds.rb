@@ -5,10 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-action_type = ActionType.find_or_create_by_name(:name => "Register")
-action_type = ActionType.find_or_create_by_name(:name => "Ride")
-action_type = ActionType.find_or_create_by_name(:name => "Compete")
-action_type = ActionType.find_or_create_by_name(:name => "Compete")
+action_type = ActionType.find_or_create_by_name(:name => "register")
+action_type = ActionType.find_or_create_by_name(:name => "ride")
+action_type = ActionType.find_or_create_by_name(:name => "compete")
 
 user_role = UserRole.find_or_create_by_name(:name => "Representative")
 user_role = UserRole.find_or_create_by_name(:name => "Rider")

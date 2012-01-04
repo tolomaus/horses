@@ -12,10 +12,12 @@ I) Either by navigating to apps.facebook.com/whitehorsefarm or by clicking on th
     After the user has logged in, FB will do another POST to "/" but now with a valid signed_request
     Pages#index will redirect to horses
   3) logged on - not connected
-    FB asks the user to authorize the app
+    FB asks the user to authorize the app (the index page is not shown)
     After the user has approved, FB will do a POST to "/" with a valid signed_request
     Pages#index will redirect to horses
   4) logged on - connected
+    FB does a POST to "/" with a valid signed_request
+    Pages#index will redirect to horses
   5) invalid access token (log off - log in)
     a) When navigating to WHF from the APPS link, FB will send a valid signed_request which WHF will use to replace the old one
     b) When the FB js SDK is loaded on the current page and when logging of - on from another page, FB will automatically notify the user on the WHF tab that he must sign back in. Once the user has signed back in , FB will (probably) do a POST to "/"

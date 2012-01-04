@@ -11,10 +11,10 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'pg'
+gem 'unicorn'
 
 group :development do
-  gem 'unicorn'
-  gem 'sqlite3'
   gem 'rspec-rails'
 end
 
@@ -26,8 +26,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
-  gem 'unicorn'
 end
 
 gem 'execjs'
