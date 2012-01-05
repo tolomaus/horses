@@ -1,6 +1,8 @@
-module WhiteHorseFarm
-  module Model
+#module WhiteHorseFarm
+#  module Model
     class Base < ActiveRecord::Base
+      self.abstract_class = true
+
       include ActiveModel::Validations
       class DateOrBlankValidator < ActiveModel::EachValidator
         def validate_each(record,attribute,value)
@@ -8,5 +10,5 @@ module WhiteHorseFarm
         end
       end
     end
-  end
-end
+#  end
+#end

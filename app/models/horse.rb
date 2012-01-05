@@ -1,4 +1,4 @@
-class Horse < WhiteHorseFarm::Model::Base
+class Horse < Base
   attr_accessible :name, :description, :image
   validates :name, :presence => true
 

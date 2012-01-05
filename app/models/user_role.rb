@@ -1,4 +1,4 @@
-class UserRole < WhiteHorseFarm::Model::Base
+class UserRole < Base
   attr_accessible
 
   validates :name, :presence => true

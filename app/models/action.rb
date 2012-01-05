@@ -1,4 +1,4 @@
-class Action < WhiteHorseFarm::Model::Base
+class Action < Base
   attr_accessible
 
   validates :fb_action_id, :user_id, :horse_id, :action_type_id, :occurred_at, :presence => true

@@ -6,7 +6,7 @@ class EnforceRequiredFields < ActiveRecord::Migration
     add_index :action_types, :name, :unique => true
     change_column :actions, :name, :string, :null => false
     add_index :actions, :name, :unique => true
-    change_column :actions, :fb_action_id, :integer, :null => false
+    change_column :actions, :fb_action_id, :string, :null => false
     change_column :actions, :user_id, :integer, :null => false
     change_column :actions, :horse_id, :integer, :null => false
     change_column :actions, :action_type_id, :integer, :null => false

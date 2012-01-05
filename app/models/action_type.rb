@@ -1,4 +1,4 @@
-class ActionType < WhiteHorseFarm::Model::Base
+class ActionType < Base
   attr_accessible
 
   validates :name, :presence => true

@@ -1,4 +1,4 @@
-class Relationship < WhiteHorseFarm::Model::Base
+class Relationship < Base
   validates :user_id, :horse_id, :user_role_id, :presence => true
   validates :user_id, :horse_id, :action_type_id, :numericality => { :only_integer => true }
 

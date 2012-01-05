@@ -1,9 +1,11 @@
 class ChangeOccurredFieldDataTypeOnAction < ActiveRecord::Migration
   def up
-    change_column :actions, :occurred_at, :datetime
+    remove_column :actions, :occurred_at
+    add_column :actions, :occurred_at, :datetime, :null => false
   end
 
   def down
-    change_column :actions, :occurred_at, :string
+    remove_column :actions, :occurred_at
+    add_column :actions, :occurred_at, :string, :null => false
   end
 end

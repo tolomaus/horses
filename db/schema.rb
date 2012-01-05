@@ -22,13 +22,13 @@ ActiveRecord::Schema.define(:version => 20120102211631) do
   add_index "action_types", ["name"], :name => "index_action_types_on_name", :unique => true
 
   create_table "actions", :force => true do |t|
-    t.string   "fb_action_id",                  :null => false
-    t.integer  "user_id",                       :null => false
-    t.integer  "horse_id",                      :null => false
-    t.integer  "action_type_id",                :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.datetime "occurred_at",    :limit => 255, :null => false
+    t.string   "fb_action_id",   :null => false
+    t.integer  "user_id",        :null => false
+    t.integer  "horse_id",       :null => false
+    t.integer  "action_type_id", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.datetime "occurred_at",    :null => false
   end
 
   add_index "actions", ["action_type_id"], :name => "index_actions_on_action_type_id"
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(:version => 20120102211631) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -81,5 +81,13 @@ ActiveRecord::Schema.define(:version => 20120102211631) do
   end
 
   add_index "users", ["fb_user_id"], :name => "index_users_on_fb_user_id", :unique => true
+
+  add_foreign_key "actions", "action_types", :name => "actions_action_type_id_fk"
+  add_foreign_key "actions", "horses", :name => "actions_horse_id_fk"
+  add_foreign_key "actions", "users", :name => "actions_user_id_fk"
+
+  add_foreign_key "relationships", "horses", :name => "relationships_horse_id_fk"
+  add_foreign_key "relationships", "user_roles", :name => "relationships_user_role_id_fk"
+  add_foreign_key "relationships", "users", :name => "relationships_user_id_fk"
 
 end
