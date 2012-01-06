@@ -4,7 +4,7 @@
       self.abstract_class = true
 
       include ActiveModel::Validations
-      class DateOrBlankValidator < ActiveModel::EachValidator
+      class DateValidator < ActiveModel::EachValidator
         def validate_each(record,attribute,value)
           record.errors[attribute] << "must be a valid datetime or blank" unless value.blank? or ((DateTime.parse(value) rescue nil))
         end
