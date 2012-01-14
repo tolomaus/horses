@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120102211631) do
+ActiveRecord::Schema.define(:version => 20120109202633) do
 
   create_table "action_types", :force => true do |t|
     t.string   "name",       :null => false
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(:version => 20120102211631) do
 
   add_index "actions", ["action_type_id"], :name => "index_actions_on_action_type_id"
   add_index "actions", ["horse_id"], :name => "index_actions_on_horse_id"
-  add_index "actions", ["user_id", "horse_id", "action_type_id"], :name => "index_actions_ud_hid_atid", :unique => true
   add_index "actions", ["user_id"], :name => "index_actions_on_user_id"
 
   create_table "horses", :force => true do |t|

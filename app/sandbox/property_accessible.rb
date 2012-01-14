@@ -1,0 +1,3 @@
+class PropertyAccessible
+  @exception
+end

@@ -13,6 +13,8 @@ class EnforceRequiredFields < ActiveRecord::Migration
   end
 
   def down
+    remove_index(:actions, { :name => "index_actions_ud_hid_atid"})
+    add_index(:actions, [:user_id, :horse_id, :action_type_id], { :unique => true })
     change_column :action_types, :name, :string, :null => true
     remove_index :action_types, :name
     change_column :actions, :name, :string, :null => true

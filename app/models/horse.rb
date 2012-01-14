@@ -6,4 +6,7 @@ class Horse < Base
   has_many :relationships
   #TODO has_many :rides, :competes, ...
   #TODO has_many :representatives, :riders, :owners, ...
+
+  validates_associated :actions
+  validates_associated :relationships
 end

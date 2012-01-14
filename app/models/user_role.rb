@@ -1,5 +1,5 @@
 class UserRole < Base
-  attr_accessible
+  attr_accessible :name
 
   validates :name, :presence => true
 end
