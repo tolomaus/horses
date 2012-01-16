@@ -20,125 +20,96 @@ describe Horse do
       }.to change(Horse, :count).by(1)
     end
 
-    describe "when saving a new horse with an action pushed to it" do
+    describe "when saving a new horse with an action using push" do
       it "should save the horse" do
         expect{
-          save_new_horse_and_action()
+          save_new_horse_and_action_using_push()
         }.to change(Horse, :count).by(1)
       end
 
       it "should save the action" do
         expect{
-          save_new_horse_and_action()
+          save_new_horse_and_action_using_push()
         }.to change(Action, :count).by(1)
       end
     end
 
-    describe "when saving a new horse with an action built on it" do
+    describe "when saving a new horse with a new action using build" do
       it "should save the horse" do
         expect{
-          save_new_horse_and_action_with_build()
+          save_new_horse_and_action_using_build()
         }.to change(Horse, :count).by(1)
       end
 
       it "should save the action" do
         expect{
-          save_new_horse_and_action_with_build()
+          save_new_horse_and_action_using_build()
         }.to change(Action, :count).by(1)
       end
     end
 
-    it "should save the horse when saving a new horse with an action pushed to it" do
-      expect{
-        save_new_horse_and_action_with_push()
-      }.to change(Horse, :count).by(1)
+    describe "when saving first the new horse and then save it again with a new action using push" do
+      it "should save the horse" do
+        expect{
+          save_new_horse_and_save_again_with_action_using_push()
+        }.to change(Horse, :count).by(1)
+      end
+      it "should save the action" do
+        expect{
+          save_new_horse_and_save_again_with_action_using_push()
+        }.to change(Action, :count).by(1)
+      end
     end
-
-    it "should save the action when saving a new horse with an action pushed to it" do
-      expect{
-        save_new_horse_and_action_with_push()
-      }.to change(Action, :count).by(1)
-    end
-
-    it "should save the new horse and then the action" do
-      expect{
-        @horse.save!
-        @action = Factory.build(:action)
-        @horse.actions.push @action
-        if (!@horse.save)
-          if (@action.invalid?)
-            Rails.logger.info "Validation errors on the action ..."
-            @action.errors.each { |attr,msg| Rails.logger.info "error: #{attr} - #{msg}"}
-          end
-          if (@horse.invalid?)
-            Rails.logger.info "Validation errors on the horse ..."
-            @horse.errors.each { |attr,msg| Rails.logger.info "- #{attr} - #{msg}"}
-          end
-        end
-      }.to change(Action, :count).by(1)
-    end
-
-    #it "should save the horse when saving a new horse with an action pushed to it inside a transaction" do
-    #  expect{
-    #    Horse.transaction do
-    #      @action = Factory.build(:action)
-    #      if (@action.invalid?)
-    #        Rails.logger.info "Validating the action ..."
-    #        @action.errors.each { |attr,msg| Rails.logger.info "error: #{attr} - #{msg}"}
-    #        raise ActiveRecord::Rollback
-    #      end
-    #      @horse.actions.push @action
-    #      if (!@horse.save)
-    #        Rails.logger.info "Validating the horse ..."
-    #        @horse.errors.each { |attr,msg| Rails.logger.info "- #{attr} - #{msg}"}
-    #        raise ActiveRecord::Rollback
-    #      end
-    #    end
-    #  }.to change(Horse, :count).by(1)
-    #end
-    #
-    #it "should save the action when saving a new horse with an action pushed to it inside a transaction" do
-    #  expect{
-    #    Horse.transaction do
-    #      @action = Factory.build(:action)
-    #      @horse.actions.push @action
-    #      if (!@horse.save)
-    #        @horse.errors.each { |attr,msg| Rails.logger.info "error: #{attr} - #{msg}"}
-    #        raise ActiveRecord::Rollback
-    #      end
-    #    end
-    #  }.to change(Action, :count).by(1)
-    #end
-
   end
 end
 
-def save_new_horse_and_action_with_push
+def save_new_horse_and_action_using_push
   @action = Factory.build(:action)
   @horse.actions.push @action
+  @action.horse = @horse #must be linked explicitly because push uses the horse id which is nil for a new horse
   if (!@horse.save)
     if (@action.invalid?)
-      Rails.logger.info "Validation errors on the action ..."
-      @action.errors.each { |attr, msg| Rails.logger.info "error: #{attr} - #{msg}" }
+      Rails.logger.info "Validation errors on the action:"
+      @action.errors.each { |attr, msg| Rails.logger.info "- #{attr} - #{msg}" }
     end
     if (@horse.invalid?)
-      Rails.logger.info "Validation errors on the horse ..."
+      Rails.logger.info "Validation errors on the horse:"
       @horse.errors.each { |attr, msg| Rails.logger.info "- #{attr} - #{msg}" }
     end
   end
 end
 
-def save_new_horse_and_action_with_build
-  @horse.actions.build(Factory.build(:action))
+def save_new_horse_and_action_using_build
+  @action = @horse.actions.build(Factory.attributes_for(:action))
   if (!@horse.save)
     if (@action.invalid?)
-      Rails.logger.info "Validation errors on the action ..."
-      @action.errors.each { |attr, msg| Rails.logger.info "error: #{attr} - #{msg}" }
+      Rails.logger.info "Validation errors on the action:"
+      @action.errors.each { |attr, msg| Rails.logger.info "- #{attr} - #{msg}" }
     end
     if (@horse.invalid?)
-      Rails.logger.info "Validation errors on the horse ..."
+      Rails.logger.info "Validation errors on the horse:"
       @horse.errors.each { |attr, msg| Rails.logger.info "- #{attr} - #{msg}" }
     end
   end
 end
+
+def save_new_horse_and_save_again_with_action_using_push
+  Horse.transaction do
+    @horse.save!
+    @action = Factory.build(:action)
+    @horse.actions.push @action
+    if (!@horse.save)
+      if (@action.invalid?)
+        Rails.logger.info "Validation errors on the action:"
+        @action.errors.each { |attr,msg| Rails.logger.info "- #{attr} - #{msg}"}
+      end
+      if (@horse.invalid?)
+        Rails.logger.info "Validation errors on the horse:"
+        @horse.errors.each { |attr,msg| Rails.logger.info "- #{attr} - #{msg}"}
+      end
+      raise ActiveRecord::Rollback
+    end
+  end
+end
+
 
