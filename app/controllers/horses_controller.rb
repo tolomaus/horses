@@ -17,27 +17,29 @@ class HorsesController < ApplicationController
   end
 
   def create
-    transaction do
-      @horse = Horse.new(params[:horse])
-      if !@horse.save
-        @title = "Register your horse"
-        render 'new'
-        raise ActiveRecord::Rollback
-      end
-      #horse must have an internal id before registering it to Facebook
-      facebook_service = FacebookService.new(@fb_client)
-      @action = Action.new(:user => @user,
-                           :horse => @horse,
-                           :action_type => ActionType.find_by_name(:register),
-                           :occurred_at => DateTime.now
-      )
-      @action.occurred_at = DateTime.now
-      if !@action.save
-        @title = "Register your horse"
-        render 'new'
-      end
+    @horse = Horse.new(params[:horse])
+    action = Action.new(:user => @user,
+                        :horse => @horse,
+                        :action_type => ActionType.find_by_name(:register),
+                        :occurred_at => Time.now
+    )
+    @horse.actions.push action
+    if !@horse.save
+      @title = "Register your horse"
+      render 'new'
+      raise ActiveRecord::Rollback
+    end
+
+    facebook_service = FacebookService.new(@fb_client)
+    begin
       @action.fb_action_id = facebook_service.register_horse! @horse, horse_url(@horse)
+    rescue Exception => e
+      logger.error e
+    end
+    begin
       @horse.fb_object_id = facebook_service.find_id_by_horse_url! horse_url(@horse)
+    rescue Exception => e
+      logger.error e
     end
 
     redirect_to @horse, :flash => { :success => "Horse was successfully registered. Object id: #{@horse.fb_object_id}, registration id: #{@horse.fb_registration_id}" } and return

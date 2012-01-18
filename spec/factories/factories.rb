@@ -7,7 +7,7 @@ Factory.define :action do |r|
   r.sequence (:fb_action_id){|n| "FB#{n}" }
   r.user User.me.all.first
   r.action_type ActionType.find_by_name("register")
-  r.occurred_at Time.zone.now
+  r.occurred_at Time.now
 end
 #
 #Factory.define :pcr_primitive, :class => Pcr do |p|

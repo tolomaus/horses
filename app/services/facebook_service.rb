@@ -2,6 +2,8 @@ require 'net/http'
 require "uri"
 
 class FacebookService
+  class FacebookError < StandardError; end
+
   def initialize( fb_client )
     @fb_client = fb_client
   end
@@ -24,7 +26,7 @@ class FacebookService
     response = http.request(request)
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
-      raise "Registration of horse #{horse.name} (id: #{horse.id}) to Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
+      raise FacebookError.new("Registration of horse #{horse.name} (id: #{horse.id}) to Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}")
     end
 
     return parsed_json[:id]
@@ -48,7 +50,7 @@ class FacebookService
     response = http.request(request)
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
-      raise "Update of horse #{horse.name} (id: #{horse.id}) to Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
+      raise FacebookError.new("Update of horse #{horse.name} (id: #{horse.id}) to Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}")
     end
 
     return parsed_json[:id]
@@ -67,14 +69,13 @@ class FacebookService
     response = http.request(request)
     parsed_json = ActiveSupport::JSON.decode(response.body)
     if response.code!='200'
-      Rails.logger.info "Get 'me' from Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}"
+      FacebookError.new("Get 'me' from Facebook failed. Error returned by Facebook: #{parsed_json['error']['type']}: #{parsed_json['error']['message']}")
     end
 
     return parsed_json
   end
 
   def find_id_by_horse_url!(horse_url)
-    @fb_client.fql_query("SELECT uid, name, first_name, last_name FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
-
+    @fb_client.fql_query("SELECT id FROM object_url WHERE url = '#{horse_url}'")
   end
 end

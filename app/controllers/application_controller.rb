@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     @fb_client = @_current_facebook_client
     @fb_app = Mogli::Application.find(FACEBOOK_CONFIG['app_id'], @fb_client)
     @fb_user = Mogli::User.find("me", @fb_client)
-    @user = User.find_or_create_by_fb_user_id(@fb_user)
+    @user = User.find_or_create_by_fb_user_id(@fb_user.id)
   end
 
   def cleanup_auth_cookie

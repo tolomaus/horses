@@ -7,7 +7,7 @@ development:
   app_id: 277975605588155
   app_name: White Horse Farm
   secret: 6cfef061c4aa154dc24b1c44ce3d720b
-  canvas_url: https://apps.facebook.com/whitehorsefarm
+  canvas_url: http://apps.facebook.com/whitehorsefarm
   url: http://localhost:3000
   domain: localhost
 

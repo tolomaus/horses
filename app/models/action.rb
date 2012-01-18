@@ -6,6 +6,6 @@ class Action < Base
   validates :occurred_at, :date => true
 
   belongs_to :user
-  belongs_to :horse, :inverse_of => :actions
+  belongs_to :horse
   belongs_to :action_type
 end
