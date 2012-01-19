@@ -27,12 +27,11 @@ class HorsesController < ApplicationController
     if !@horse.save
       @title = "Register your horse"
       render 'new'
-      raise ActiveRecord::Rollback
     end
 
     facebook_service = FacebookService.new(@fb_client)
     begin
-      @action.fb_action_id = facebook_service.register_horse! @horse, horse_url(@horse)
+      action.fb_action_id = facebook_service.register_horse! @horse, horse_url(@horse)
     rescue Exception => e
       logger.error e
     end

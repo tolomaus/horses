@@ -3,6 +3,10 @@ class User < Base
 
   validates :fb_user_id, :presence => true
 
-  scope :me, where(:fb_user_id => "1185998828")
-  scope :prutse, where(:fb_user_id => "1697986600")
+  def self.me
+    self.find_by_fb_user_id "1185998828"
+  end
+  def self.prutse
+    self.find_by_fb_user_id "1697986600"
+  end
 end

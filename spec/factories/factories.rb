@@ -5,8 +5,8 @@ end
 
 Factory.define :action do |r|
   r.sequence (:fb_action_id){|n| "FB#{n}" }
-  r.user User.me.all.first
-  r.action_type ActionType.find_by_name("register")
+  r.user User.me
+  r.action_type ActionType.register
   r.occurred_at Time.now
 end
 #

@@ -5,6 +5,25 @@ describe Horse do
     @horse = Factory.build(:horse)
   end
 
+  describe "queries" do
+    it "should be possible to retrieve the rides" do
+      ride = Factory.build(:action, :action_type => ActionType.ride)
+      @horse.rides.push ride
+      @horse.save!
+
+      @horse.reload
+      @horse.rides.count.should == 1
+    end
+    it "should be possible to retrieve the registration" do
+      registration = Factory.build(:action, :action_type => ActionType.register)
+      @horse.registration = registration
+      @horse.save!
+
+      @horse.reload
+      @horse.registration.should_not be_nil
+    end
+  end
+
   describe "validations" do
     it "should be valid when created with valid properties" do
       @horse.should be_valid
@@ -119,6 +138,27 @@ describe Horse do
         expect{
           save_new_horse_and_action_with_intermediate_save_using_build()
         }.to change(Action, :count).by(1)
+      end
+    end
+
+    describe "when saving an existing horse and action with changes" do
+      before(:each) do
+        @horse = Factory.build(:horse)
+        @horse.actions.push Factory.build(:action)
+        @horse.save!
+      end
+
+      it "should update the horse" do
+        @horse.name="UPDATED"
+        @horse.save!
+        @horse.reload
+        @horse.name.should == "UPDATED"
+      end
+      it "should update the action" do
+        @horse.actions.first.fb_action_id="UPDATED"
+        @horse.save!
+        @horse.reload
+        @horse.actions.first.fb_action_id.should == "UPDATED"
       end
     end
   end

@@ -8,4 +8,8 @@ class Action < Base
   belongs_to :user
   belongs_to :horse
   belongs_to :action_type
+
+  scope :registrations, :conditions => {:action_type => ActionType.register}
+  scope :rides, :conditions => {:action_type => ActionType.ride}
+  scope :competes, :conditions => {:action_type => ActionType.compete}
 end
