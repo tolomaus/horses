@@ -18,7 +18,7 @@
     <th></th>
   </tr>
 
-<% @horses.each do |horse| %>
+<% @related_horses.each do |horse| %>
   <tr>
     <td><img src="<%= !horse.image.empty? ? horse.image : "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" %>" ></td>
     <td><%= horse.name %></td>

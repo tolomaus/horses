@@ -1,32 +1,44 @@
-Factory.define :horse do |a|
-  a.sequence (:name){|n| "Horse #{n}" }
-  a.description {|x| "This is the description of #{x.name}" }
+Factory.define :user do |r|
+  r.sequence (:fb_user_id){|n| "FB_ride_#{n}" }
 end
 
-Factory.define :action do |r|
-  r.sequence (:fb_action_id){|n| "FB#{n}" }
-  r.user User.me
-  r.action_type ActionType.register
+Factory.define :horse do |r|
+  r.sequence (:name){|n| "Horse #{n}" }
+  r.description {|x| "This is the description of #{x.name}" }
+end
+
+Factory.define :action_base, :class => Action do |r|
+  r.sequence (:fb_action_id){|n| "FB_ride_#{n}" }
+  r.association :user, :factory => :user
+  r.association :horse, :factory => :horse
   r.occurred_at Time.now
 end
-#
-#Factory.define :pcr_primitive, :class => Pcr do |p|
-#  p.sequence (:code){|n| "PCR#{n}" }
-#  p.summary {|x| "This is the summary of #{x.code}"}
-#  p.description {|x| "This is the description of #{x.code}"}
-#end
-#
-#Factory.define :pcr, :parent => :pcr_primitive do |p|
-#  p.app App.first
-#  p.release Release.first
-#  p.status Status.first
-#  p.severity Severity.first
-#end
-#
-#Factory.define :pcr_view, :parent => :pcr_primitive do |p|
-#  p.app_id 1
-#  p.release_id 1
-#  p.status_id 1
-#  p.severity_id 1
-#end
-#
+
+Factory.define :registration, :parent => :action_base do |r|
+  r.action_type ActionType.register
+end
+
+Factory.define :ride, :parent => :action_base do |r|
+  r.action_type ActionType.ride
+end
+
+Factory.define :compete, :parent => :action_base do |r|
+  r.action_type ActionType.compete
+end
+
+Factory.define :relationship_base, :class => Relationship do |r|
+  r.association :user, :factory => :user
+  r.association :horse, :factory => :horse
+end
+
+Factory.define :rider_rel, :parent => :relationship_base do |r|
+  r.user_role UserRole.rider
+end
+
+Factory.define :owner_rel, :parent => :relationship_base do |r|
+  r.user_role UserRole.owner
+end
+
+Factory.define :representative_rel, :parent => :relationship_base do |r|
+  r.user_role UserRole.representative
+end

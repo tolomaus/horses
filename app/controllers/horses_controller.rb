@@ -3,7 +3,7 @@ class HorsesController < ApplicationController
 
   def index
     @title = "Your horses"
-    @horses = Horse.find_all_by_user_id(@user.id)
+    @related_horses = Horse.related_to_user(@user).with_related_users
   end
 
   def show

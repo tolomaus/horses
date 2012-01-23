@@ -1,5 +1,5 @@
 class Action < Base
-  attr_accessible :horse_id, :fb_action_id, :user, :action_type, :occurred_at
+  attr_accessible :horse_id, :fb_action_id, :user_id, :action_type, :occurred_at
 
   validates :fb_action_id, :user, :horse, :action_type, :occurred_at, :presence => true
   #validates :user_id, :horse_id, :action_type_id, :numericality => { :only_integer => true }
@@ -9,7 +9,10 @@ class Action < Base
   belongs_to :horse
   belongs_to :action_type
 
-  scope :registrations, :conditions => {:action_type => ActionType.register}
-  scope :rides, :conditions => {:action_type => ActionType.ride}
-  scope :competes, :conditions => {:action_type => ActionType.compete}
+  scope :to_register, where(:action_type_id => ActionType.register)
+  scope :to_ride, where(:action_type_id => ActionType.ride)
+  scope :to_compete, where(:action_type_id => ActionType.compete)
+
+  scope :by_user, lambda{|user|where(:user => user)}
+  scope :on_horse, lambda{|horse|where(:horse => horse)}
 end
