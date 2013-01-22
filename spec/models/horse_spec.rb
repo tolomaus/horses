@@ -44,8 +44,8 @@ describe Horse do
       user2 = Factory.create(:user)
 
       horse1 = Factory.build(:horse)
-      horse1.relationships.push Factory.build(:representative_rel, :user => me)
-      horse1.relationships.push Factory.build(:rider_rel, :user => user1)
+      horse1.relationships.push Factory.build(:representative_rel, :user => user1)
+      horse1.relationships.push Factory.build(:rider_rel, :user => me)
       horse1.relationships.push Factory.build(:owner_rel, :user => user2)
       horse1.save!
 
@@ -69,9 +69,12 @@ describe Horse do
       horse4.relationships.push Factory.build(:owner_rel, :user => user2)
       horse4.save!
 
-      horses = Horse.related_to_user(me).with_related_users.all
+      horses = Horse.sort_by_importance(Horse.related_to_user(me).with_related_users.all, me)
       horses.count.should == 3
       horses.should include(horse1, horse2, horse4)
+      horses[0].should == horse2
+      horses[1].should == horse1
+      horses[2].should == horse4
     end
   end
 

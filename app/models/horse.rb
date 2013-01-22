@@ -6,11 +6,32 @@ class Horse < Base
   has_many :relationships, :autosave => true, :inverse_of => :horse, :dependent => :destroy
 
   scope :related_to_user, lambda{|user|
-                            joins(:relationships)
-                           .merge(Relationship.for_user user)
-                           .uniq
-                        }
-  scope :with_related_users, includes(:relationships => [:user])
+      joins(:relationships)
+     .merge(Relationship.for_user user)
+     .uniq
+  }
+
+  scope :with_related_users, includes(:relationships => [:user, :user_role])
+
+  def self.sort_by_importance(horses, user)
+    horses.each do |horse|
+      horse.instance_eval do
+        def tmp_importance
+          instance_variable_get("@tmp_importance")
+        end
+        def tmp_importance=(val)
+          instance_variable_set("@tmp_importance",val)
+        end
+      end
+      horse.tmp_importance = 0
+      horse.tmp_importance += 8 if horse.relationships.find{|r| r.user == user && r.user_role == UserRole.representative}!=nil
+      horse.tmp_importance += 4 if horse.relationships.find{|r| r.user == user && r.user_role == UserRole.rider}!=nil
+      horse.tmp_importance += 2 if horse.relationships.find{|r| r.user == user && r.user_role == UserRole.owner}!=nil
+    end
+    horses.sort_by do |horse|
+      -horse.tmp_importance
+    end
+  end
 
   #
   #def registration
