@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Horse do
   before(:each) do
-    @horse = Factory.build(:horse)
+    @horse = FactoryGirl.build(:horse)
   end
 
   describe "queries" do
     it "should retrieve the rides" do
-      ride1 = Factory.build(:ride)
-      ride2 = Factory.build(:ride)
+      ride1 = FactoryGirl.build(:ride)
+      ride2 = FactoryGirl.build(:ride)
       @horse.actions.push ride1
       @horse.actions.push ride2
       @horse.save!
@@ -19,7 +19,7 @@ describe Horse do
       @horse.actions.to_ride.should include(ride2)
     end
     it "should retrieve the registration" do
-      registration = Factory.build(:registration)
+      registration = FactoryGirl.build(:registration)
       @horse.actions.push registration
       @horse.save!
 
@@ -27,8 +27,8 @@ describe Horse do
       @horse.actions.to_register.should_not be_nil
     end
     it "should retrieve the riders" do
-      rider_rel1 = Factory.build(:rider_rel)
-      rider_rel2 = Factory.build(:rider_rel)
+      rider_rel1 = FactoryGirl.build(:rider_rel)
+      rider_rel2 = FactoryGirl.build(:rider_rel)
       @horse.relationships.push rider_rel1
       @horse.relationships.push rider_rel2
       @horse.save!
@@ -40,33 +40,33 @@ describe Horse do
     end
     it "should retrieve the horses related to me" do
       me = User.me
-      user1 = Factory.create(:user)
-      user2 = Factory.create(:user)
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
 
-      horse1 = Factory.build(:horse)
-      horse1.relationships.push Factory.build(:representative_rel, :user => user1)
-      horse1.relationships.push Factory.build(:rider_rel, :user => me)
-      horse1.relationships.push Factory.build(:owner_rel, :user => user2)
+      horse1 = FactoryGirl.build(:horse)
+      horse1.relationships.push FactoryGirl.build(:representative_rel, :user => user1)
+      horse1.relationships.push FactoryGirl.build(:rider_rel, :user => me)
+      horse1.relationships.push FactoryGirl.build(:owner_rel, :user => user2)
       horse1.save!
 
-      horse2 = Factory.build(:horse)
-      horse2.relationships.push Factory.build(:representative_rel, :user => me)
-      horse2.relationships.push Factory.build(:rider_rel, :user => me)
-      horse2.relationships.push Factory.build(:owner_rel, :user => me)
+      horse2 = FactoryGirl.build(:horse)
+      horse2.relationships.push FactoryGirl.build(:representative_rel, :user => me)
+      horse2.relationships.push FactoryGirl.build(:rider_rel, :user => me)
+      horse2.relationships.push FactoryGirl.build(:owner_rel, :user => me)
       horse2.save!
 
-      horse3 = Factory.build(:horse)
-      horse3.relationships.push Factory.build(:representative_rel, :user => user1)
-      horse3.relationships.push Factory.build(:rider_rel, :user => user1)
-      horse3.relationships.push Factory.build(:owner_rel, :user => user1)
+      horse3 = FactoryGirl.build(:horse)
+      horse3.relationships.push FactoryGirl.build(:representative_rel, :user => user1)
+      horse3.relationships.push FactoryGirl.build(:rider_rel, :user => user1)
+      horse3.relationships.push FactoryGirl.build(:owner_rel, :user => user1)
       horse3.save!
 
-      horse4 = Factory.build(:horse)
-      horse4.relationships.push Factory.build(:representative_rel, :user => user1)
-      horse4.relationships.push Factory.build(:rider_rel, :user => user2)
-      horse4.relationships.push Factory.build(:owner_rel, :user => me)
-      horse4.relationships.push Factory.build(:owner_rel, :user => user1)
-      horse4.relationships.push Factory.build(:owner_rel, :user => user2)
+      horse4 = FactoryGirl.build(:horse)
+      horse4.relationships.push FactoryGirl.build(:representative_rel, :user => user1)
+      horse4.relationships.push FactoryGirl.build(:rider_rel, :user => user2)
+      horse4.relationships.push FactoryGirl.build(:owner_rel, :user => me)
+      horse4.relationships.push FactoryGirl.build(:owner_rel, :user => user1)
+      horse4.relationships.push FactoryGirl.build(:owner_rel, :user => user2)
       horse4.save!
 
       horses = Horse.sort_by_importance(Horse.related_to_user(me).with_related_users.all, me)
@@ -84,7 +84,7 @@ describe Horse do
     end
 
     it "should be valid when created with an action with valid properties" do
-      ride = Factory.build(:ride)
+      ride = FactoryGirl.build(:ride)
       @horse.actions.push(ride) #must set the inverse_of on horse.actions
 
       @horse.should be_valid
@@ -96,7 +96,7 @@ describe Horse do
     end
 
     it "should not be valid when created with an action with a missing mandatory property" do
-      ride = Factory.build(:ride)
+      ride = FactoryGirl.build(:ride)
       ride.fb_action_id=nil
       @horse.actions.push(ride)
 
@@ -104,7 +104,7 @@ describe Horse do
     end
 
     it "should not be valid when created with an action with a missing occurred date" do
-      ride = Factory.build(:ride)
+      ride = FactoryGirl.build(:ride)
       ride.occurred_at=nil
       @horse.actions.push(ride)
 
@@ -129,7 +129,7 @@ describe Horse do
 
     describe "saving a new horse with an action using push" do
       it "should be successful" do
-        ride = Factory.build(:ride)
+        ride = FactoryGirl.build(:ride)
         expect{
         expect{
           @horse.actions.push ride #must set the inverse_of on horse.rides
@@ -150,7 +150,7 @@ describe Horse do
 
     describe "saving a new horse with an action using push operator" do
       it "should be successful" do
-        ride = Factory.build(:ride)
+        ride = FactoryGirl.build(:ride)
         expect{
         expect{
           @horse.actions << ride #must set the inverse_of on horse.rides
@@ -173,7 +173,7 @@ describe Horse do
       it "should be successful" do
         expect{
         expect{
-          attr = Factory.attributes_for(:ride)
+          attr = FactoryGirl.attributes_for(:ride)
           ride = @horse.actions.build(attr) #must set the necessary attr_accessible's and also inverse_of on horse.rides
           if (!@horse.save)
             if (ride.invalid?)
@@ -192,7 +192,7 @@ describe Horse do
 
     describe "saving first the new horse and then save it again with a new action using push" do
       it "should be successful" do
-        ride = Factory.build(:ride)
+        ride = FactoryGirl.build(:ride)
         expect{
         expect{
           Horse.transaction do
@@ -221,7 +221,7 @@ describe Horse do
         expect{
           Horse.transaction do
             @horse.save!
-            attr = Factory.attributes_for(:ride)
+            attr = FactoryGirl.attributes_for(:ride)
             ride = @horse.actions.build(attr) #must set the necessary attr_accessible's
             if (!@horse.save)
               if (ride.invalid?)
@@ -242,8 +242,8 @@ describe Horse do
 
     describe "saving an existing horse and action with changes" do
       before(:each) do
-        @horse = Factory.build(:horse)
-        @horse.actions.push Factory.build(:ride)
+        @horse = FactoryGirl.build(:horse)
+        @horse.actions.push FactoryGirl.build(:ride)
         @horse.save!
       end
 

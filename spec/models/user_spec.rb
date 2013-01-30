@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
   end
   describe "queries" do
     it "should retrieve the horse relations the user rides" do
-      @user.relationships.push Factory.build(:rider_rel)
-      @user.relationships.push Factory.build(:rider_rel)
+      @user.relationships.push FactoryGirl.build(:rider_rel)
+      @user.relationships.push FactoryGirl.build(:rider_rel)
       @user.save!
 
       @user.reload
@@ -16,8 +16,8 @@ describe User do
     end
 
     it "should retrieve the horses the user rides with collect" do
-      @user.relationships.push Factory.build(:rider_rel)
-      @user.relationships.push Factory.build(:rider_rel)
+      @user.relationships.push FactoryGirl.build(:rider_rel)
+      @user.relationships.push FactoryGirl.build(:rider_rel)
       @user.save!
 
       @user.reload
@@ -27,8 +27,8 @@ describe User do
     end
 
     it "should retrieve the horses the user rides with select" do
-      @user.relationships.push Factory.build(:rider_rel)
-      @user.relationships.push Factory.build(:rider_rel)
+      @user.relationships.push FactoryGirl.build(:rider_rel)
+      @user.relationships.push FactoryGirl.build(:rider_rel)
       @user.save!
 
       @user.reload
